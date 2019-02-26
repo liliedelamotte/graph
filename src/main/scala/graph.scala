@@ -116,6 +116,14 @@ object graph
     def minimumSpanningTree:Option[Graph[T]]
 
 
+    /** todo */
+    def getLocalTSP():Seq[Edge[T]]
+
+
+    /** todo */
+    def getLocalTSP(initialTour:Seq[T]):Seq[Edge[T]]
+
+
     /** Returns a string literal of the graph. */
     override def toString:String
   }
@@ -524,6 +532,18 @@ object graph
 
       /** Returns None as directed graphs cannot have minimum spanning trees. */
       def minimumSpanningTree:Option[Graph[T]] = { None }
+
+
+      /** todo */
+      def getLocalTSP():Seq[Edge[T]] = {
+
+      }
+
+
+      /** todo */
+      def getLocalTSP(initialTour:Seq[T]):Seq[Edge[T]] = {
+
+      }
 
 
       /** Returns a string literal of the graph. */
@@ -968,6 +988,18 @@ object graph
           }
           Some(minimumSpanningTree)
         }
+      }
+
+
+      /** todo */
+      def getLocalTSP():Seq[Edge[T]] = {
+
+      }
+
+
+      /** todo */
+      def getLocalTSP(initialTour:Seq[T]):Seq[Edge[T]] = {
+
       }
 
 
