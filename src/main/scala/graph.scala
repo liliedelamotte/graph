@@ -116,11 +116,11 @@ object graph
     def minimumSpanningTree:Option[Graph[T]]
 
 
-    /** todo */
+    /** Returns approximately the quickest way to visit all vertices in a graph. */
     def getLocalTSP():Seq[Edge[T]]
 
 
-    /** todo */
+    /** Returns approximately the quickest way to visit all vertices in a graph. */
     def getLocalTSP(initialTour:Seq[T]):Seq[Edge[T]]
 
 
@@ -534,15 +534,55 @@ object graph
       def minimumSpanningTree:Option[Graph[T]] = { None }
 
 
-      /** todo */
+      /** Returns approximately the quickest way to visit all vertices in a graph. */
       def getLocalTSP():Seq[Edge[T]] = {
+        // todo use DFS to create a tour
+        var tour = Seq[T]()
+
+        for (vertex <- getVertices) {
+
+        }
+      }
+
+
+      /** Returns approximately the quickest way to visit all vertices in a graph. */
+      def getLocalTSP(initialTour:Seq[T]):Seq[Edge[T]] = {
+
+        var current = initialTour
+        var found = false
+        var newTour = Seq[T]()
+        var bestTour = Seq[Edge[T]]()
+
+
+        // todo does this need to keep going through the graph? Like, is this stopping once a single better tour is found?
+        while (!found) {
+          var bestDistance = pathLength(current)
+          for (i <- getVertices) {
+            for (j <- getVertices) {
+              newTour = twoOptSwap(current, i, j)
+              var newDistance = pathLength(newTour)
+              if (newDistance.isDefined && newDistance < bestDistance) {
+                current = newTour
+                bestDistance = newDistance
+                found = true
+              }
+            }
+          }
+        }
+
+        for (pair <- current.sliding(2)) {
+          bestTour +:= getEdge(pair.head, pair.last)
+        }
+
+        bestTour
 
       }
 
 
       /** todo */
-      def getLocalTSP(initialTour:Seq[T]):Seq[Edge[T]] = {
-
+      def twoOptSwap(tour:Seq[T], i:T, k:T):Seq[T] = {
+        // todo does this helper method need to go in the trait?
+        var prefix = tour[0]
       }
 
 
@@ -991,13 +1031,13 @@ object graph
       }
 
 
-      /** todo */
+      /** Returns approximately the quickest way to visit all vertices in a graph. */
       def getLocalTSP():Seq[Edge[T]] = {
 
       }
 
 
-      /** todo */
+      /** Returns approximately the quickest way to visit all vertices in a graph. */
       def getLocalTSP(initialTour:Seq[T]):Seq[Edge[T]] = {
 
       }
