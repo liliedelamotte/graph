@@ -579,10 +579,15 @@ object graph
       }
 
 
-      /** todo */
+      /** Swaps the path between two elements and returns a new tour. */
       def twoOptSwap(tour:Seq[T], i:T, k:T):Seq[T] = {
+
         // todo does this helper method need to go in the trait?
-        var prefix = tour[0]
+        val prefix = tour.slice(0, tour.indexOf(i) - 1)
+        val reverse = tour.slice(tour.indexOf(i), tour.indexOf(k))
+        val suffix = tour.slice(tour.indexOf(k) + 1, tour.size - 1)
+        prefix ++ reverse ++ suffix
+
       }
 
 
@@ -1039,6 +1044,18 @@ object graph
 
       /** Returns approximately the quickest way to visit all vertices in a graph. */
       def getLocalTSP(initialTour:Seq[T]):Seq[Edge[T]] = {
+
+      }
+
+
+      /** Swaps the path between two elements and returns a new tour. */
+      def twoOptSwap(tour:Seq[T], i:T, k:T):Seq[T] = {
+
+        // todo does this helper method need to go in the trait?
+        val prefix = tour.slice(0, tour.indexOf(i) - 1)
+        val reverse = tour.slice(tour.indexOf(i), tour.indexOf(k))
+        val suffix = tour.slice(tour.indexOf(k) + 1, tour.size - 1)
+        prefix ++ reverse ++ suffix
 
       }
 
