@@ -564,6 +564,8 @@ object graph
           }
         }
 
+        tour :+= getVertices.head
+
         getLocalTSP(tour)
 
       }
@@ -579,21 +581,35 @@ object graph
         var bestDistance = pathLength(current).get
 
         while (found) {
+
           found = false
           bestDistance = pathLength(current).get
+          println(bestDistance)
+
           for (i <- getVertices) {
+
             for (j <- getVertices) {
+
               newTour = twoOptSwap(current, i, j)
               val newDistance = pathLength(newTour)
+
               if (newDistance.isDefined) {
-                if (newDistance.get < bestDistance) {
+
+                if (newDistance.get < bestDistance
+                  && newTour.size == getVertices.size) {
+
                   current = newTour
                   bestDistance = newDistance.get
                   found = true
+
                 }
+
               }
+
             }
+
           }
+
         }
 
         for (pair <- current.sliding(2)) {
@@ -606,12 +622,11 @@ object graph
 
 
       /** Swaps the path between two elements and returns a new tour. */
-      private def twoOptSwap(tour:Seq[T], i:T, k:T):Seq[T] = {
+      def twoOptSwap(tour:Seq[T], firstVertex:T, secondVertex:T):Seq[T] = {
 
-        val prefix = tour.slice(0, tour.indexOf(i) - 1)
-        val reverse = tour.slice(tour.indexOf(i), tour.indexOf(k))
-        val suffix = tour.slice(tour.indexOf(k) + 1, tour.size - 1)
-
+        val prefix = tour.slice(0, tour.indexOf(firstVertex))
+        val reverse = tour.slice(tour.indexOf(firstVertex), tour.indexOf(secondVertex))
+        val suffix = tour.slice(tour.indexOf(secondVertex), tour.size)
         prefix ++ reverse ++ suffix
 
       }
@@ -1091,6 +1106,10 @@ object graph
           }
         }
 
+        tour :+= getVertices.head
+
+        println(tour)
+
         getLocalTSP(tour)
 
       }
@@ -1106,21 +1125,35 @@ object graph
         var bestDistance = pathLength(current).get
 
         while (found) {
+
           found = false
           bestDistance = pathLength(current).get
+          println(bestDistance)
+
           for (i <- getVertices) {
+
             for (j <- getVertices) {
+
               newTour = twoOptSwap(current, i, j)
               val newDistance = pathLength(newTour)
+
               if (newDistance.isDefined) {
-                if (newDistance.get < bestDistance) {
+
+                if (newDistance.get < bestDistance
+                  && newTour.size == getVertices.size) {
+
                   current = newTour
                   bestDistance = newDistance.get
                   found = true
+
                 }
+
               }
+
             }
+
           }
+
         }
 
         for (pair <- current.sliding(2)) {
@@ -1133,11 +1166,11 @@ object graph
 
 
       /** Swaps the path between two elements and returns a new tour. */
-      def twoOptSwap(tour:Seq[T], i:T, k:T):Seq[T] = {
+      def twoOptSwap(tour:Seq[T], firstVertex:T, secondVertex:T):Seq[T] = {
 
-        val prefix = tour.slice(0, tour.indexOf(i) - 1)
-        val reverse = tour.slice(tour.indexOf(i), tour.indexOf(k))
-        val suffix = tour.slice(tour.indexOf(k) + 1, tour.size - 1)
+        val prefix = tour.slice(0, tour.indexOf(firstVertex))
+        val reverse = tour.slice(tour.indexOf(firstVertex), tour.indexOf(secondVertex))
+        val suffix = tour.slice(tour.indexOf(secondVertex), tour.size)
         prefix ++ reverse ++ suffix
 
       }
@@ -1174,6 +1207,12 @@ object graph
     graph = graph.addEdge("chemex", "aeropress", 2)
     graph = graph.addEdge("aeropress", "v-60", 3)
     graph = graph.addEdge("v-60", "chemex", 4)
+
+    print(graph.getLocalTSP())
+
+    graph = graph.addEdge("chemex", "v-60", 1)
+    graph = graph.addEdge("v-60", "aeropress", 1)
+    graph = graph.addEdge("aeropress", "chemex", 1)
 
     print(graph.getLocalTSP())
   }
