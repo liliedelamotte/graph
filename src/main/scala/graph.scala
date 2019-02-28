@@ -1,5 +1,5 @@
 // ldelamotte17@georgefox.edu
-// Assignment 2
+// Assignment 3
 // 2018-02-14
 
 
@@ -536,12 +536,36 @@ object graph
 
       /** Returns approximately the quickest way to visit all vertices in a graph. */
       def getLocalTSP():Seq[Edge[T]] = {
-        // todo use DFS to create a tour
+
         var tour = Seq[T]()
+        var stack = Seq[T]()
+        var visited = Set[T]()
 
-        for (vertex <- getVertices) {
+        stack +:= getVertices.head
 
+        while (stack.nonEmpty) {
+
+          // pops the first element from the stack
+          var vertex = stack.head
+          stack = stack.tail
+
+          // adds vertex to the tour if it has not already been visited
+          if (!visited.contains(vertex)) {
+            tour :+= vertex
+            visited += vertex
+          }
+
+          // looks at adjacent vertices and adds them to
+          // the stack if they have not been visited
+          for (adjacentVertex <- getAdjacent(vertex)) {
+            if (!visited.contains(adjacentVertex)) {
+              stack +:= adjacentVertex
+            }
+          }
         }
+
+        getLocalTSP(tour)
+
       }
 
 
@@ -549,22 +573,24 @@ object graph
       def getLocalTSP(initialTour:Seq[T]):Seq[Edge[T]] = {
 
         var current = initialTour
-        var found = false
+        var found = true
         var newTour = Seq[T]()
         var bestTour = Seq[Edge[T]]()
+        var bestDistance = pathLength(current).get
 
-
-        // todo does this need to keep going through the graph? Like, is this stopping once a single better tour is found?
-        while (!found) {
-          var bestDistance = pathLength(current)
+        while (found) {
+          found = false
+          bestDistance = pathLength(current).get
           for (i <- getVertices) {
             for (j <- getVertices) {
               newTour = twoOptSwap(current, i, j)
-              var newDistance = pathLength(newTour)
-              if (newDistance.isDefined && newDistance < bestDistance) {
-                current = newTour
-                bestDistance = newDistance
-                found = true
+              val newDistance = pathLength(newTour)
+              if (newDistance.isDefined) {
+                if (newDistance.get < bestDistance) {
+                  current = newTour
+                  bestDistance = newDistance.get
+                  found = true
+                }
               }
             }
           }
@@ -580,12 +606,12 @@ object graph
 
 
       /** Swaps the path between two elements and returns a new tour. */
-      def twoOptSwap(tour:Seq[T], i:T, k:T):Seq[T] = {
+      private def twoOptSwap(tour:Seq[T], i:T, k:T):Seq[T] = {
 
-        // todo does this helper method need to go in the trait?
         val prefix = tour.slice(0, tour.indexOf(i) - 1)
         val reverse = tour.slice(tour.indexOf(i), tour.indexOf(k))
         val suffix = tour.slice(tour.indexOf(k) + 1, tour.size - 1)
+
         prefix ++ reverse ++ suffix
 
       }
@@ -1039,11 +1065,70 @@ object graph
       /** Returns approximately the quickest way to visit all vertices in a graph. */
       def getLocalTSP():Seq[Edge[T]] = {
 
+        var tour = Seq[T]()
+        var stack = Seq[T]()
+        var visited = Set[T]()
+
+        stack +:= getVertices.head
+
+        while (stack.nonEmpty) {
+
+          // pops the first element from the stack
+          var vertex = stack.head
+          stack = stack.tail
+
+          // adds vertex to the tour if it has not already been visited
+          if (!visited.contains(vertex)) {
+            tour :+= vertex
+            visited += vertex
+          }
+
+          // looks at adjacent vertices and adds them to
+          // the stack if they have not been visited
+          for (adjacentVertex <- getAdjacent(vertex)) {
+            if (!visited.contains(adjacentVertex)) {
+              stack +:= adjacentVertex
+            }
+          }
+        }
+
+        getLocalTSP(tour)
+
       }
 
 
       /** Returns approximately the quickest way to visit all vertices in a graph. */
       def getLocalTSP(initialTour:Seq[T]):Seq[Edge[T]] = {
+
+        var current = initialTour
+        var found = true
+        var newTour = Seq[T]()
+        var bestTour = Seq[Edge[T]]()
+        var bestDistance = pathLength(current).get
+
+        while (found) {
+          found = false
+          bestDistance = pathLength(current).get
+          for (i <- getVertices) {
+            for (j <- getVertices) {
+              newTour = twoOptSwap(current, i, j)
+              val newDistance = pathLength(newTour)
+              if (newDistance.isDefined) {
+                if (newDistance.get < bestDistance) {
+                  current = newTour
+                  bestDistance = newDistance.get
+                  found = true
+                }
+              }
+            }
+          }
+        }
+
+        for (pair <- current.sliding(2)) {
+          bestTour +:= getEdge(pair.head, pair.last)
+        }
+
+        bestTour
 
       }
 
@@ -1051,7 +1136,6 @@ object graph
       /** Swaps the path between two elements and returns a new tour. */
       def twoOptSwap(tour:Seq[T], i:T, k:T):Seq[T] = {
 
-        // todo does this helper method need to go in the trait?
         val prefix = tour.slice(0, tour.indexOf(i) - 1)
         val reverse = tour.slice(tour.indexOf(i), tour.indexOf(k))
         val suffix = tour.slice(tour.indexOf(k) + 1, tour.size - 1)
