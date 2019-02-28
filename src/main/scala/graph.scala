@@ -172,12 +172,12 @@ object graph
       val file:File = new File(fileName)
       val scanner:Scanner = new Scanner(file)
       var graph = apply[String](isDirected)
-      var numVertices:Int = null
-      var vertex:String = null
-      var numEdges:Int = null
-      var source:String = null
-      var destination:String = null
-      var weight:String = null
+      var numVertices:Int = 0
+      var vertex:String = ""
+      var numEdges:Int = 0
+      var source:String = ""
+      var destination:String = ""
+      var weight:String = ""
 
       try {
 
@@ -597,7 +597,7 @@ object graph
         }
 
         for (pair <- current.sliding(2)) {
-          bestTour +:= getEdge(pair.head, pair.last)
+          bestTour = bestTour ++ getEdge(pair.head, pair.last)
         }
 
         bestTour
@@ -992,8 +992,7 @@ object graph
         }
 
         // sets the distance to the first vertex to zero as that's where the path begins
-        distance += (current -> 0)
-        parent += (current -> None)
+        distance = distance + (current -> 0)
 
         // officially visits the first vertex
         visited += current
@@ -1125,7 +1124,7 @@ object graph
         }
 
         for (pair <- current.sliding(2)) {
-          bestTour +:= getEdge(pair.head, pair.last)
+          bestTour = bestTour ++ getEdge(pair.head, pair.last)
         }
 
         bestTour
@@ -1162,4 +1161,21 @@ object graph
       }
     }
   }
+
+  def main(args:Array[String]): Unit = {
+
+    var graph = Graph[String](true)
+
+
+    graph = graph.addVertex("chemex")
+    graph = graph.addVertex("aeropress")
+    graph = graph.addVertex("v-60")
+
+    graph = graph.addEdge("chemex", "aeropress", 2)
+    graph = graph.addEdge("aeropress", "v-60", 3)
+    graph = graph.addEdge("v-60", "chemex", 4)
+
+    print(graph.getLocalTSP())
+  }
+
 }
