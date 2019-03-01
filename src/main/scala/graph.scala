@@ -584,15 +584,18 @@ object graph
 
           found = false
           bestDistance = pathLength(current).get
-          println(bestDistance)
 
+          // iterates through all possible pairs of vertices
           for (i <- getVertices) {
 
             for (j <- getVertices) {
 
+              // swaps the two vertices and the path
+              // between them to create a potential tour
               newTour = twoOptSwap(current, i, j)
               val newDistance = pathLength(newTour)
 
+              // determines whether or not the new tour is quicker
               if (newDistance.isDefined) {
 
                 if (newDistance.get < bestDistance
@@ -612,6 +615,7 @@ object graph
 
         }
 
+        // creates a sequence of edges based off the best tour
         for (pair <- current.sliding(2)) {
           bestTour = bestTour ++ getEdge(pair.head, pair.last)
         }
@@ -1108,8 +1112,6 @@ object graph
 
         tour :+= getVertices.head
 
-        println(tour)
-
         getLocalTSP(tour)
 
       }
@@ -1128,15 +1130,18 @@ object graph
 
           found = false
           bestDistance = pathLength(current).get
-          println(bestDistance)
 
+          // iterates through all possible pairs of vertices
           for (i <- getVertices) {
 
             for (j <- getVertices) {
 
+              // swaps the two vertices and the path
+              // between them to create a potential tour
               newTour = twoOptSwap(current, i, j)
               val newDistance = pathLength(newTour)
 
+              // determines whether or not the new tour is quicker
               if (newDistance.isDefined) {
 
                 if (newDistance.get < bestDistance
@@ -1156,6 +1161,7 @@ object graph
 
         }
 
+        // creates a sequence of edges based off the best tour
         for (pair <- current.sliding(2)) {
           bestTour = bestTour ++ getEdge(pair.head, pair.last)
         }
