@@ -1214,13 +1214,12 @@ object graph
     graph = graph.addEdge("aeropress", "v-60", 3)
     graph = graph.addEdge("v-60", "chemex", 4)
 
-    print(graph.getLocalTSP())
-
     graph = graph.addEdge("chemex", "v-60", 1)
     graph = graph.addEdge("v-60", "aeropress", 1)
     graph = graph.addEdge("aeropress", "chemex", 1)
 
-    print(graph.getLocalTSP())
+    val tours = Seq("chemex", "aeropress", "v-60", "chemex")
+
   }
 
 }
