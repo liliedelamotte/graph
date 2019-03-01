@@ -1,6 +1,6 @@
 // ldelamotte17@georgefox.edu
-// Assignment 2
-// 2018-02-14
+// Assignment 4
+// 2019-03-05
 
 
 import java.io.{File, IOException}
@@ -116,6 +116,14 @@ object graph
     def minimumSpanningTree:Option[Graph[T]]
 
 
+    /** Returns approximately the quickest way to visit all vertices in a graph. */
+    def getLocalTSP():Seq[Edge[T]]
+
+
+    /** Returns approximately the quickest way to visit all vertices in a graph. */
+    def getLocalTSP(initialTour:Seq[T]):Seq[Edge[T]]
+
+
     /** Returns a string literal of the graph. */
     override def toString:String
   }
@@ -164,12 +172,12 @@ object graph
       val file:File = new File(fileName)
       val scanner:Scanner = new Scanner(file)
       var graph = apply[String](isDirected)
-      var numVertices:Int = null
-      var vertex:String = null
-      var numEdges:Int = null
-      var source:String = null
-      var destination:String = null
-      var weight:String = null
+      var numVertices:Int = 0
+      var vertex:String = ""
+      var numEdges:Int = 0
+      var source:String = ""
+      var destination:String = ""
+      var weight:String = ""
 
       try {
 
@@ -524,6 +532,108 @@ object graph
 
       /** Returns None as directed graphs cannot have minimum spanning trees. */
       def minimumSpanningTree:Option[Graph[T]] = { None }
+
+
+      /** Returns approximately the quickest way to visit all vertices in a graph. */
+      def getLocalTSP():Seq[Edge[T]] = {
+
+        var tour = Seq[T]()
+        var stack = Seq[T]()
+        var visited = Set[T]()
+
+        stack +:= getVertices.head
+
+        while (stack.nonEmpty) {
+
+          // pops the first element from the stack
+          var vertex = stack.head
+          stack = stack.tail
+
+          // adds vertex to the tour if it has not already been visited
+          if (!visited.contains(vertex)) {
+            tour :+= vertex
+            visited += vertex
+          }
+
+          // looks at adjacent vertices and adds them to
+          // the stack if they have not been visited
+          for (adjacentVertex <- getAdjacent(vertex)) {
+            if (!visited.contains(adjacentVertex)) {
+              stack +:= adjacentVertex
+            }
+          }
+        }
+
+        tour :+= getVertices.head
+
+        getLocalTSP(tour)
+
+      }
+
+
+      /** Returns approximately the quickest way to visit all vertices in a graph. */
+      def getLocalTSP(initialTour:Seq[T]):Seq[Edge[T]] = {
+
+        var current = initialTour
+        var found = true
+        var newTour = Seq[T]()
+        var bestTour = Seq[Edge[T]]()
+        var bestDistance = pathLength(current).get
+
+        while (found) {
+
+          found = false
+          bestDistance = pathLength(current).get
+
+          // iterates through all possible pairs of vertices
+          for (i <- getVertices) {
+
+            for (j <- getVertices) {
+
+              // swaps the two vertices and the path
+              // between them to create a potential tour
+              newTour = twoOptSwap(current, i, j)
+              val newDistance = pathLength(newTour)
+
+              // determines whether or not the new tour is quicker
+              if (newDistance.isDefined) {
+
+                if (newDistance.get < bestDistance
+                  && newTour.size == getVertices.size) {
+
+                  current = newTour
+                  bestDistance = newDistance.get
+                  found = true
+
+                }
+
+              }
+
+            }
+
+          }
+
+        }
+
+        // creates a sequence of edges based off the best tour
+        for (pair <- current.sliding(2)) {
+          bestTour = bestTour ++ getEdge(pair.head, pair.last)
+        }
+
+        bestTour
+
+      }
+
+
+      /** Swaps the path between two elements and returns a new tour. */
+      def twoOptSwap(tour:Seq[T], firstVertex:T, secondVertex:T):Seq[T] = {
+
+        val prefix = tour.slice(0, tour.indexOf(firstVertex))
+        val reverse = tour.slice(tour.indexOf(firstVertex), tour.indexOf(secondVertex))
+        val suffix = tour.slice(tour.indexOf(secondVertex), tour.size)
+        prefix ++ reverse ++ suffix
+
+      }
 
 
       /** Returns a string literal of the graph. */
@@ -901,8 +1011,7 @@ object graph
         }
 
         // sets the distance to the first vertex to zero as that's where the path begins
-        distance += (current -> 0)
-        parent += (current -> None)
+        distance = distance + (current -> 0)
 
         // officially visits the first vertex
         visited += current
@@ -971,6 +1080,108 @@ object graph
       }
 
 
+      /** Returns approximately the quickest way to visit all vertices in a graph. */
+      def getLocalTSP():Seq[Edge[T]] = {
+
+        var tour = Seq[T]()
+        var stack = Seq[T]()
+        var visited = Set[T]()
+
+        stack +:= getVertices.head
+
+        while (stack.nonEmpty) {
+
+          // pops the first element from the stack
+          var vertex = stack.head
+          stack = stack.tail
+
+          // adds vertex to the tour if it has not already been visited
+          if (!visited.contains(vertex)) {
+            tour :+= vertex
+            visited += vertex
+          }
+
+          // looks at adjacent vertices and adds them to
+          // the stack if they have not been visited
+          for (adjacentVertex <- getAdjacent(vertex)) {
+            if (!visited.contains(adjacentVertex)) {
+              stack +:= adjacentVertex
+            }
+          }
+        }
+
+        tour :+= getVertices.head
+
+        getLocalTSP(tour)
+
+      }
+
+
+      /** Returns approximately the quickest way to visit all vertices in a graph. */
+      def getLocalTSP(initialTour:Seq[T]):Seq[Edge[T]] = {
+
+        var current = initialTour
+        var found = true
+        var newTour = Seq[T]()
+        var bestTour = Seq[Edge[T]]()
+        var bestDistance = pathLength(current).get
+
+        while (found) {
+
+          found = false
+          bestDistance = pathLength(current).get
+
+          // iterates through all possible pairs of vertices
+          for (i <- getVertices) {
+
+            for (j <- getVertices) {
+
+              // swaps the two vertices and the path
+              // between them to create a potential tour
+              newTour = twoOptSwap(current, i, j)
+              val newDistance = pathLength(newTour)
+
+              // determines whether or not the new tour is quicker
+              if (newDistance.isDefined) {
+
+                if (newDistance.get < bestDistance
+                  && newTour.size == getVertices.size) {
+
+                  current = newTour
+                  bestDistance = newDistance.get
+                  found = true
+
+                }
+
+              }
+
+            }
+
+          }
+
+        }
+
+        // creates a sequence of edges based off the best tour
+        for (pair <- current.sliding(2)) {
+          bestTour = bestTour ++ getEdge(pair.head, pair.last)
+        }
+
+        bestTour
+
+      }
+
+
+      /** Swaps the path between two elements and returns a new tour. */
+      def twoOptSwap(tour:Seq[T], firstVertex:T, secondVertex:T):Seq[T] = {
+
+        val prefix = tour.slice(0, tour.indexOf(firstVertex))
+        val reverse = tour.slice(tour.indexOf(firstVertex), tour.indexOf(secondVertex))
+        val suffix = tour.slice(tour.indexOf(secondVertex), tour.size)
+        prefix ++ reverse ++ suffix
+
+      }
+
+
       /** Returns a string literal of the graph. */
       override def toString:String = {
 
@@ -989,4 +1200,26 @@ object graph
       }
     }
   }
+
+  def main(args:Array[String]): Unit = {
+
+    var graph = Graph[String](true)
+
+
+    graph = graph.addVertex("chemex")
+    graph = graph.addVertex("aeropress")
+    graph = graph.addVertex("v-60")
+
+    graph = graph.addEdge("chemex", "aeropress", 2)
+    graph = graph.addEdge("aeropress", "v-60", 3)
+    graph = graph.addEdge("v-60", "chemex", 4)
+
+    graph = graph.addEdge("chemex", "v-60", 1)
+    graph = graph.addEdge("v-60", "aeropress", 1)
+    graph = graph.addEdge("aeropress", "chemex", 1)
+
+    val tours = Seq("chemex", "aeropress", "v-60", "chemex")
+
+  }
+
 }
