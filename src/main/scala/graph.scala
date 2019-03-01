@@ -1200,26 +1200,4 @@ object graph
       }
     }
   }
-
-  def main(args:Array[String]): Unit = {
-
-    var graph = Graph[String](true)
-
-
-    graph = graph.addVertex("chemex")
-    graph = graph.addVertex("aeropress")
-    graph = graph.addVertex("v-60")
-
-    graph = graph.addEdge("chemex", "aeropress", 2)
-    graph = graph.addEdge("aeropress", "v-60", 3)
-    graph = graph.addEdge("v-60", "chemex", 4)
-
-    graph = graph.addEdge("chemex", "v-60", 1)
-    graph = graph.addEdge("v-60", "aeropress", 1)
-    graph = graph.addEdge("aeropress", "chemex", 1)
-
-    val tours = Seq("chemex", "aeropress", "v-60", "chemex")
-
-  }
-
 }
