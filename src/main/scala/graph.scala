@@ -578,12 +578,11 @@ object graph
         var found = true
         var newTour = Seq[T]()
         var bestTour = Seq[Edge[T]]()
-        var bestDistance = pathLength(current).get
 
         while (found) {
 
           found = false
-          bestDistance = pathLength(current).get
+          var bestDistance = pathLength(current).get
 
           // iterates through all possible pairs of vertices
           for (i <- getVertices) {
@@ -1124,12 +1123,11 @@ object graph
         var found = true
         var newTour = Seq[T]()
         var bestTour = Seq[Edge[T]]()
-        var bestDistance = pathLength(current).get
 
         while (found) {
 
           found = false
-          bestDistance = pathLength(current).get
+          var bestDistance = pathLength(current).get
 
           // iterates through all possible pairs of vertices
           for (i <- getVertices) {
@@ -1200,4 +1198,21 @@ object graph
       }
     }
   }
+
+  def main(args: Array[String]): Unit = {
+
+    var graph = Graph[String](true)
+    graph = graph.addVertex("chemex")
+    graph = graph.addVertex("aeropress")
+    graph = graph.addVertex("v-60")
+
+    graph = graph.addEdge("chemex", "aeropress", 1)
+    graph = graph.addEdge("aeropress", "v-60", 1)
+    graph = graph.addEdge("v-60", "chemex", 1)
+
+    print(graph.getLocalTSP())
+
+
+  }
+
 }
