@@ -626,7 +626,7 @@ object graph
 
 
       /** Swaps the path between two elements and returns a new tour. */
-      def twoOptSwap(tour:Seq[T], firstVertex:T, secondVertex:T):Seq[T] = {
+      private def twoOptSwap(tour:Seq[T], firstVertex:T, secondVertex:T):Seq[T] = {
 
         val prefix = tour.slice(0, tour.indexOf(firstVertex))
         val reverse = tour.slice(tour.indexOf(firstVertex), tour.indexOf(secondVertex))
@@ -1172,7 +1172,7 @@ object graph
 
 
       /** Swaps the path between two elements and returns a new tour. */
-      def twoOptSwap(tour:Seq[T], firstVertex:T, secondVertex:T):Seq[T] = {
+      private def twoOptSwap(tour:Seq[T], firstVertex:T, secondVertex:T):Seq[T] = {
 
         val prefix = tour.slice(0, tour.indexOf(firstVertex))
         val reverse = tour.slice(tour.indexOf(firstVertex), tour.indexOf(secondVertex))
@@ -1200,26 +1200,4 @@ object graph
       }
     }
   }
-
-  def main(args:Array[String]): Unit = {
-
-    var graph = Graph[String](true)
-
-
-    graph = graph.addVertex("chemex")
-    graph = graph.addVertex("aeropress")
-    graph = graph.addVertex("v-60")
-
-    graph = graph.addEdge("chemex", "aeropress", 2)
-    graph = graph.addEdge("aeropress", "v-60", 3)
-    graph = graph.addEdge("v-60", "chemex", 4)
-
-    graph = graph.addEdge("chemex", "v-60", 1)
-    graph = graph.addEdge("v-60", "aeropress", 1)
-    graph = graph.addEdge("aeropress", "chemex", 1)
-
-    val tours = Seq("chemex", "aeropress", "v-60", "chemex")
-
-  }
-
 }
