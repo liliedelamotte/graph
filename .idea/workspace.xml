@@ -2,12 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ecf95680-fdb1-425a-867d-47dbc07ec7a3" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/scala/graph.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/graph.scala" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/scala-2.12/classes/graph$.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/scala-2.12/classes/graph$.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/scala-2.12/classes/graph$Graph$.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/scala-2.12/classes/graph$Graph$.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/scala-2.12/classes/graph$Graph$DirectedGraphImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/scala-2.12/classes/graph$Graph$DirectedGraphImpl.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/scala-2.12/classes/graph$Graph$UndirectedGraphImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/scala-2.12/classes/graph$Graph$UndirectedGraphImpl.class" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -75,12 +70,12 @@
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="sbt" value="4" />
-          <entry key="scala" value="30280" />
+          <entry key="scala" value="30350" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="Scala" value="30280" />
+          <entry key="Scala" value="30350" />
           <entry key="sbt" value="4" />
         </counts>
       </usages-collector>
@@ -91,8 +86,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/scala/graph.scala">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-13696">
-              <caret line="206" lean-forward="true" selection-start-line="206" selection-end-line="206" />
+            <state relative-caret-position="205">
+              <caret line="1200" selection-start-line="1200" selection-end-line="1200" />
               <folding>
                 <element signature="n#!!doc" expanded="true" />
               </folding>
@@ -329,13 +324,13 @@
       <window_info id="Favorites" order="4" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49919224" visible="true" weight="0.30547947" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49919224" weight="0.30547947" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.0" />
       <window_info anchor="bottom" id="sbt-shell-toolwindow" order="7" weight="0.32876712" />
-      <window_info anchor="bottom" id="Terminal" order="8" weight="0.0" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="8" visible="true" weight="0.0" />
       <window_info anchor="bottom" id="Event Log" order="9" sideWeight="0.50080776" side_tool="true" weight="0.32876712" />
       <window_info anchor="bottom" id="Version Control" order="10" weight="0.32876712" />
       <window_info anchor="bottom" id="Build" order="11" weight="0.12328767" />
@@ -424,8 +419,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/scala/graph.scala">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-13696">
-          <caret line="206" lean-forward="true" selection-start-line="206" selection-end-line="206" />
+        <state relative-caret-position="205">
+          <caret line="1200" selection-start-line="1200" selection-end-line="1200" />
           <folding>
             <element signature="n#!!doc" expanded="true" />
           </folding>

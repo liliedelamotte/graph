@@ -124,6 +124,10 @@ object graph
     def getLocalTSP(initialTour:Seq[T]):Seq[Edge[T]]
 
 
+    /** Computes the optimal solution to the TSP. */
+    def dynamicTSP:Seq[Edge[T]]
+
+
     /** Returns a string literal of the graph. */
     override def toString:String
   }
@@ -635,6 +639,12 @@ object graph
         val reverse = tour.slice(tour.indexOf(firstVertex), tour.indexOf(secondVertex))
         val suffix = tour.slice(tour.indexOf(secondVertex), tour.size)
         prefix ++ reverse ++ suffix
+
+      }
+
+
+      /** Computes the optimal solution to the TSP. */
+      def dynamicTSP:Seq[Edge[T]] = {
 
       }
 
@@ -1184,6 +1194,11 @@ object graph
         val reverse = tour.slice(tour.indexOf(firstVertex), tour.indexOf(secondVertex))
         val suffix = tour.slice(tour.indexOf(secondVertex), tour.size)
         prefix ++ reverse ++ suffix
+
+      }
+
+      /** Computes the optimal solution to the TSP. */
+      def dynamicTSP:Seq[Edge[T]] = {
 
       }
 
