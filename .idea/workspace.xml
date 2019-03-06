@@ -2,30 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ecf95680-fdb1-425a-867d-47dbc07ec7a3" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/sbt__org_scala_lang_scala_library_2_12_7_jar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/graph.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/graph.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/scala/graph.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/graph.scala" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/.history" beforeDir="false" afterPath="$PROJECT_DIR$/target/.history" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/scala-2.12/classes/graph$.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/scala-2.12/classes/graph$.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/scala-2.12/classes/graph$Graph$.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/scala-2.12/classes/graph$Graph$.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/scala-2.12/classes/graph$Graph$DirectedGraphImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/scala-2.12/classes/graph$Graph$DirectedGraphImpl.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/scala-2.12/classes/graph$Graph$UndirectedGraphImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/scala-2.12/classes/graph$Graph$UndirectedGraphImpl.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/scala-2.12/classes/graph.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/scala-2.12/classes/graph.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/scala-2.12/resolution-cache/default/graph$sources/0.1/resolved.xml.properties" beforeDir="false" afterPath="$PROJECT_DIR$/target/scala-2.12/resolution-cache/default/graph$sources/0.1/resolved.xml.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/scala-2.12/resolution-cache/default/graph$sources/0.1/resolved.xml.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/scala-2.12/resolution-cache/default/graph$sources/0.1/resolved.xml.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/scala-2.12/resolution-cache/reports/default-graph$sources-compile-internal.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/scala-2.12/resolution-cache/reports/default-graph$sources-compile-internal.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/scala-2.12/resolution-cache/reports/default-graph$sources-compile.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/scala-2.12/resolution-cache/reports/default-graph$sources-compile.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/scala-2.12/resolution-cache/reports/default-graph$sources-optional.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/scala-2.12/resolution-cache/reports/default-graph$sources-optional.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/scala-2.12/resolution-cache/reports/default-graph$sources-plugin.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/scala-2.12/resolution-cache/reports/default-graph$sources-plugin.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/scala-2.12/resolution-cache/reports/default-graph$sources-pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/scala-2.12/resolution-cache/reports/default-graph$sources-pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/scala-2.12/resolution-cache/reports/default-graph$sources-provided.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/scala-2.12/resolution-cache/reports/default-graph$sources-provided.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/scala-2.12/resolution-cache/reports/default-graph$sources-runtime-internal.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/scala-2.12/resolution-cache/reports/default-graph$sources-runtime-internal.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/scala-2.12/resolution-cache/reports/default-graph$sources-runtime.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/scala-2.12/resolution-cache/reports/default-graph$sources-runtime.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/scala-2.12/resolution-cache/reports/default-graph$sources-scala-tool.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/scala-2.12/resolution-cache/reports/default-graph$sources-scala-tool.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/scala-2.12/resolution-cache/reports/default-graph$sources-test-internal.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/scala-2.12/resolution-cache/reports/default-graph$sources-test-internal.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/scala-2.12/resolution-cache/reports/default-graph$sources-test.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/scala-2.12/resolution-cache/reports/default-graph$sources-test.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/streams/$global/updateClassifiers/$global/streams/out" beforeDir="false" afterPath="$PROJECT_DIR$/target/streams/$global/updateClassifiers/$global/streams/out" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -93,12 +75,12 @@
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="sbt" value="4" />
-          <entry key="scala" value="29973" />
+          <entry key="scala" value="30280" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="Scala" value="29973" />
+          <entry key="Scala" value="30280" />
           <entry key="sbt" value="4" />
         </counts>
       </usages-collector>
@@ -109,8 +91,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/scala/graph.scala">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="271">
-              <caret line="1201" column="3" selection-start-line="1201" selection-start-column="3" selection-end-line="1201" selection-end-column="3" />
+            <state relative-caret-position="-13696">
+              <caret line="206" lean-forward="true" selection-start-line="206" selection-end-line="206" />
               <folding>
                 <element signature="n#!!doc" expanded="true" />
               </folding>
@@ -151,8 +133,8 @@
       <find>edgeEx</find>
       <find>getEdgeWei</find>
       <find>getREsults</find>
-      <find>print</find>
       <find>private</find>
+      <find>print</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -347,15 +329,15 @@
       <window_info id="Favorites" order="4" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49919224" visible="true" weight="0.4" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49919224" visible="true" weight="0.30547947" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.0" />
       <window_info anchor="bottom" id="sbt-shell-toolwindow" order="7" weight="0.32876712" />
-      <window_info anchor="bottom" id="Terminal" order="8" weight="0.18630137" />
+      <window_info anchor="bottom" id="Terminal" order="8" weight="0.0" />
       <window_info anchor="bottom" id="Event Log" order="9" sideWeight="0.50080776" side_tool="true" weight="0.32876712" />
-      <window_info anchor="bottom" id="Version Control" order="10" />
+      <window_info anchor="bottom" id="Version Control" order="10" weight="0.32876712" />
       <window_info anchor="bottom" id="Build" order="11" weight="0.12328767" />
       <window_info anchor="bottom" id="Messages" order="12" weight="0.32876712" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
@@ -430,22 +412,22 @@
     <entry file="file://$PROJECT_DIR$/../../csis202/NetBeansProjects/Program6/src/RockPaperScissorsLizardSpock.java">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/scala/graph.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="271">
-          <caret line="1201" column="3" selection-start-line="1201" selection-start-column="3" selection-end-line="1201" selection-end-column="3" />
-          <folding>
-            <element signature="n#!!doc" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/test/scala/graphTest.scala">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="330">
           <caret line="23" column="4" selection-start-line="23" selection-start-column="4" selection-end-line="25" selection-end-column="30" />
           <folding>
             <element signature="e#0#29#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/scala/graph.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-13696">
+          <caret line="206" lean-forward="true" selection-start-line="206" selection-end-line="206" />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
           </folding>
         </state>
       </provider>

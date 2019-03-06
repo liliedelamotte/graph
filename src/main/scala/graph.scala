@@ -578,32 +578,35 @@ object graph
         var found = true
         var newTour = Seq[T]()
         var bestTour = Seq[Edge[T]]()
-        var bestDistance = pathLength(current).get
 
         while (found) {
 
           found = false
-          bestDistance = pathLength(current).get
+          if (pathLength(current).isDefined) {
 
-          // iterates through all possible pairs of vertices
-          for (i <- getVertices) {
+            var bestDistance = pathLength(current).get
 
-            for (j <- getVertices) {
+            // iterates through all possible pairs of vertices
+            for (i <- getVertices) {
 
-              // swaps the two vertices and the path
-              // between them to create a potential tour
-              newTour = twoOptSwap(current, i, j)
-              val newDistance = pathLength(newTour)
+              for (j <- getVertices) {
 
-              // determines whether or not the new tour is quicker
-              if (newDistance.isDefined) {
+                // swaps the two vertices and the path
+                // between them to create a potential tour
+                newTour = twoOptSwap(current, i, j)
+                val newDistance = pathLength(newTour)
 
-                if (newDistance.get < bestDistance
-                  && newTour.size == getVertices.size) {
+                // determines whether or not the new tour is quicker
+                if (newDistance.isDefined) {
 
-                  current = newTour
-                  bestDistance = newDistance.get
-                  found = true
+                  if (newDistance.get < bestDistance
+                    && newTour.size == getVertices.size) {
+
+                    current = newTour
+                    bestDistance = newDistance.get
+                    found = true
+
+                  }
 
                 }
 
@@ -1124,32 +1127,35 @@ object graph
         var found = true
         var newTour = Seq[T]()
         var bestTour = Seq[Edge[T]]()
-        var bestDistance = pathLength(current).get
 
         while (found) {
 
           found = false
-          bestDistance = pathLength(current).get
+          if (pathLength(current).isDefined) {
 
-          // iterates through all possible pairs of vertices
-          for (i <- getVertices) {
+            var bestDistance = pathLength(current).get
 
-            for (j <- getVertices) {
+            // iterates through all possible pairs of vertices
+            for (i <- getVertices) {
 
-              // swaps the two vertices and the path
-              // between them to create a potential tour
-              newTour = twoOptSwap(current, i, j)
-              val newDistance = pathLength(newTour)
+              for (j <- getVertices) {
 
-              // determines whether or not the new tour is quicker
-              if (newDistance.isDefined) {
+                // swaps the two vertices and the path
+                // between them to create a potential tour
+                newTour = twoOptSwap(current, i, j)
+                val newDistance = pathLength(newTour)
 
-                if (newDistance.get < bestDistance
-                  && newTour.size == getVertices.size) {
+                // determines whether or not the new tour is quicker
+                if (newDistance.isDefined) {
 
-                  current = newTour
-                  bestDistance = newDistance.get
-                  found = true
+                  if (newDistance.get < bestDistance
+                    && newTour.size == getVertices.size) {
+
+                    current = newTour
+                    bestDistance = newDistance.get
+                    found = true
+
+                  }
 
                 }
 
