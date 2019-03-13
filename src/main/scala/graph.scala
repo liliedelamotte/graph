@@ -647,6 +647,7 @@ object graph
 
       /** Computes the optimal solution to the TSP. */
       def dynamicTSP():Seq[Edge[T]] = {
+        // todo
         var optimalTour = Seq[Edge[T]]()
         optimalTour
       }
@@ -1216,9 +1217,7 @@ object graph
         // records every vertex's distance from the starting vertex
         for (vertex <- getVertices) {
           if (vertex != startingVertex) {
-            val newCostMapping = cost(vertex) +
-              (Set(vertex) -> getEdgeWeight(startingVertex, vertex))
-            cost += vertex -> newCostMapping
+            cost(vertex) -> Set(vertex) -> getEdgeWeight(startingVertex, vertex)
           }
         }
 
@@ -1242,7 +1241,6 @@ object graph
                 }
               }
 
-              // cost(destination) += (subset -> minCost)
               cost(destination) -> (subset -> minCost)
               parent += destination -> currentParent
 
@@ -1254,6 +1252,8 @@ object graph
           }
 
         }
+
+        print(cost)
 
         // todo return a sequence of edges somehow
         optimalTour
@@ -1311,9 +1311,8 @@ object graph
     graph = graph.addEdge("sushi", "tacos", 1)
     graph = graph.addEdge("sushi", "tots", 1)
     graph = graph.addEdge("sushi", "poke", 1)
-    graph = graph.addEdge("sushi", "sushi", 1)
 
-    print(graph)
+    print(graph.dynamicTSP())
 
   }
 }
