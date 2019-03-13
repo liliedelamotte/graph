@@ -645,10 +645,11 @@ object graph
       }
 
 
-//      /** Computes the optimal solution to the TSP. */
-//      def dynamicTSP():Seq[Edge[T]] = {
-//
-//      }
+      /** Computes the optimal solution to the TSP. */
+      def dynamicTSP():Seq[Edge[T]] = {
+        var optimalTour = Seq[Edge[T]]()
+        optimalTour
+      }
 
 
       /** Returns a string literal of the graph. */
@@ -1203,7 +1204,7 @@ object graph
       /** Computes the optimal solution to the TSP. */
       def dynamicTSP():Seq[Edge[T]] = {
 
-        val cost = Map[T, Map[Set[T], Int]]()
+        var cost = Map[T, Map[Set[T], Int]]()
         var parent = Map[T, T]()
         val startingVertex = getVertices.head
         var subsets = Iterator[Set[T]]()
@@ -1215,7 +1216,9 @@ object graph
         // records every vertex's distance from the starting vertex
         for (vertex <- getVertices) {
           if (vertex != startingVertex) {
-            cost(vertex) += (Set(vertex) -> getEdgeWeight(startingVertex, vertex))
+            val newCostMapping = cost(vertex) +
+              (Set(vertex) -> getEdgeWeight(startingVertex, vertex))
+            cost += vertex -> newCostMapping
           }
         }
 
@@ -1239,8 +1242,9 @@ object graph
                 }
               }
 
-              cost(destination) += (subset -> minCost)
-              parent(destination) = currentParent
+              // cost(destination) += (subset -> minCost)
+              cost(destination) -> (subset -> minCost)
+              parent += destination -> currentParent
 
               // resets minimum cost to infinity
               minCost = scala.Int.MaxValue
