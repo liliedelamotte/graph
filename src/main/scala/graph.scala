@@ -1206,43 +1206,71 @@ object graph
       def dynamicTSP():Seq[Edge[T]] = {
 
         var cost = Map[T, Map[Set[T], Int]]()
-        var parent = Map[T, T]()
+        var parent = Map[T, Map[Set[T], T]]()
         val startingVertex = getVertices.head
         var subsets = Iterator[Set[T]]()
         var minCost = scala.Int.MaxValue
-        var correspondingDistance = Map[T, Int]()
         var currentParent = getVertices.head
+        var optimalTourVertices = Seq[T]()
         var optimalTour = Seq[Edge[T]]()
 
         // records every vertex's distance from the starting vertex
         for (vertex <- getVertices) {
+          // adds each vertex to the map
+          cost += vertex -> Map[Set[T], Int]()
+          parent += vertex -> Map[Set[T], T]()
+          // adds the distance from the starting vertex
           if (vertex != startingVertex) {
-            cost(vertex) -> Set(vertex) -> getEdgeWeight(startingVertex, vertex)
+
+            // records each vertex's distance from the starting vertex
+            val innerCostMap = cost(vertex) + (Set(vertex) ->
+              getEdgeWeight(startingVertex, vertex))
+            cost += vertex -> innerCostMap
+
+            // records the starting vertex as the parent
+            // for each initial distance from the start
+            val innerParentMap = parent(vertex) + (Set(vertex) ->
+              startingVertex)
+            parent += vertex -> innerParentMap
+
           }
         }
 
-        for (size <- 2 until getVertices.size - 1) {
+        for (size <- 2 to getVertices.size) {
+
           subsets = getVertices.toSet.subsets(size)
 
           for (subset <- subsets) {
 
             for (destination <- subset) {
-              // smallSet is {C, D} given {B, C, D}
+
+              // smallSet might be {C, D} given {B, C, D}
               val smallSet = subset - destination
 
               for (vertex <- smallSet) {
+
                 val innerKey = cost(vertex)
-                val innerValue = innerKey(smallSet)
-                // I want to access the cost of getting to that particular vertex in that particular subset.
-                val distance = innerValue + getEdgeWeight(vertex, destination)
-                if (distance < minCost) {
-                  currentParent = vertex
-                  minCost = distance
+
+                if (innerKey.contains(smallSet)) {
+
+                  val innerValue = innerKey(smallSet)
+                  val distance = innerValue + getEdgeWeight(vertex, destination)
+
+                  if (distance < minCost) {
+                    currentParent = vertex
+                    minCost = distance
+                  }
+
                 }
+
               }
 
-              cost(destination) -> (subset -> minCost)
-              parent += destination -> currentParent
+              // adds the best option to the cost map
+              val innerCostMap = cost(destination) + (subset -> minCost)
+              cost += destination -> innerCostMap
+              // records the best option's parent for later use
+              val innerParentMap = parent(destination) + (subset -> currentParent)
+              parent += destination -> innerParentMap
 
               // resets minimum cost to infinity
               minCost = scala.Int.MaxValue
@@ -1253,9 +1281,32 @@ object graph
 
         }
 
-        print(cost)
+        // adds the starting vertex
+        optimalTourVertices :+= startingVertex
+        var mostRecentParent = startingVertex
+        var verticesLeftToAdd = getVertices.toSet
 
-        // todo return a sequence of edges somehow
+        // backtracks through the cost map until a complete path is built
+        while (optimalTourVertices.size < getVertices.size) {
+
+          var innerKey = parent(mostRecentParent)
+          var vertexToRemove = mostRecentParent
+
+          mostRecentParent = innerKey(verticesLeftToAdd)
+          optimalTourVertices :+= mostRecentParent
+
+          verticesLeftToAdd -= vertexToRemove
+
+        }
+
+        // adds the starting vertex to the end
+        optimalTourVertices :+= startingVertex
+
+        // iterates through the vertex list and creates a list of edges
+        for (pair <- optimalTourVertices.sliding(2)) {
+          optimalTour = optimalTour ++ getEdge(pair.head, pair.last)
+        }
+
         optimalTour
 
       }
