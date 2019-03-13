@@ -6,6 +6,8 @@
 import java.io.{File, IOException}
 import java.util.Scanner
 
+import scala.collection.immutable.{HashMap, HashSet}
+
 /** Factory for graph instances. */
 object graph
 {
@@ -125,7 +127,7 @@ object graph
 
 
     /** Computes the optimal solution to the TSP. */
-    def dynamicTSP:Seq[Edge[T]]
+    def dynamicTSP():Seq[Edge[T]]
 
 
     /** Returns a string literal of the graph. */
@@ -643,10 +645,10 @@ object graph
       }
 
 
-      /** Computes the optimal solution to the TSP. */
-      def dynamicTSP:Seq[Edge[T]] = {
-
-      }
+//      /** Computes the optimal solution to the TSP. */
+//      def dynamicTSP():Seq[Edge[T]] = {
+//
+//      }
 
 
       /** Returns a string literal of the graph. */
@@ -1197,8 +1199,60 @@ object graph
 
       }
 
+
       /** Computes the optimal solution to the TSP. */
-      def dynamicTSP:Seq[Edge[T]] = {
+      def dynamicTSP():Seq[Edge[T]] = {
+
+        val cost = Map[T, Map[Set[T], Int]]()
+        var parent = Map[T, T]()
+        val startingVertex = getVertices.head
+        var subsets = Iterator[Set[T]]()
+        var minCost = scala.Int.MaxValue
+        var correspondingDistance = Map[T, Int]()
+        var currentParent = getVertices.head
+        var optimalTour = Seq[Edge[T]]()
+
+        // records every vertex's distance from the starting vertex
+        for (vertex <- getVertices) {
+          if (vertex != startingVertex) {
+            cost(vertex) += (Set(vertex) -> getEdgeWeight(startingVertex, vertex))
+          }
+        }
+
+        for (size <- 2 until getVertices.size - 1) {
+          subsets = getVertices.toSet.subsets(size)
+
+          for (subset <- subsets) {
+
+            for (destination <- subset) {
+              // smallSet is {C, D} given {B, C, D}
+              val smallSet = subset - destination
+
+              for (vertex <- smallSet) {
+                val innerKey = cost(vertex)
+                val innerValue = innerKey(smallSet)
+                // I want to access the cost of getting to that particular vertex in that particular subset.
+                val distance = innerValue + getEdgeWeight(vertex, destination)
+                if (distance < minCost) {
+                  currentParent = vertex
+                  minCost = distance
+                }
+              }
+
+              cost(destination) += (subset -> minCost)
+              parent(destination) = currentParent
+
+              // resets minimum cost to infinity
+              minCost = scala.Int.MaxValue
+
+            }
+
+          }
+
+        }
+
+        // todo return a sequence of edges somehow
+        optimalTour
 
       }
 
@@ -1220,5 +1274,42 @@ object graph
 
       }
     }
+  }
+
+  def main(args: Array[String]): Unit = {
+
+    var graph = Graph[String](false)
+
+
+    graph = graph.addVertex("steam buns")
+    graph = graph.addVertex("tacos")
+    graph = graph.addVertex("tots")
+    graph = graph.addVertex("poke")
+    graph = graph.addVertex("sushi")
+
+    graph = graph.addEdge("steam buns", "tacos", 1)
+    graph = graph.addEdge("steam buns", "tots", 1)
+    graph = graph.addEdge("steam buns", "poke", 1)
+    graph = graph.addEdge("steam buns", "sushi", 1)
+    graph = graph.addEdge("tacos", "steam buns", 1)
+    graph = graph.addEdge("tacos", "tots", 1)
+    graph = graph.addEdge("tacos", "poke", 1)
+    graph = graph.addEdge("tacos", "sushi", 1)
+    graph = graph.addEdge("tots", "steam buns", 1)
+    graph = graph.addEdge("tots", "tacos", 1)
+    graph = graph.addEdge("tots", "poke", 1)
+    graph = graph.addEdge("tots", "sushi", 1)
+    graph = graph.addEdge("poke", "steam buns", 1)
+    graph = graph.addEdge("poke", "tacos", 1)
+    graph = graph.addEdge("poke", "tots", 1)
+    graph = graph.addEdge("poke", "sushi", 1)
+    graph = graph.addEdge("sushi", "steam buns", 1)
+    graph = graph.addEdge("sushi", "tacos", 1)
+    graph = graph.addEdge("sushi", "tots", 1)
+    graph = graph.addEdge("sushi", "poke", 1)
+    graph = graph.addEdge("sushi", "sushi", 1)
+
+    print(graph)
+
   }
 }
