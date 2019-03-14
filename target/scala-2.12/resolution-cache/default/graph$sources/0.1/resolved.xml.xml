@@ -4,7 +4,7 @@
 		module="graph$sources"
 		revision="0.1"
 		status="integration"
-		publication="20190305153420"
+		publication="20190314151020"
 	/>
 	<configurations>
 		<conf name="compile" visibility="public" description=""/>

@@ -1206,4 +1206,30 @@ object graph
       }
     }
   }
+
+  def main(args: Array[String]): Unit = {
+
+    var graph = Graph[String](true)
+    graph = graph.addVertex("a")
+    graph = graph.addVertex("b")
+    graph = graph.addVertex("c")
+    graph = graph.addVertex("d")
+
+    graph = graph.addEdge("a", "b", 1)
+    graph = graph.addEdge("a", "c", 10)
+    graph = graph.addEdge("a", "d", 10)
+    graph = graph.addEdge("b", "a", 10)
+    graph = graph.addEdge("b", "c", 1)
+    graph = graph.addEdge("b", "d", 10)
+    graph = graph.addEdge("c", "a", 10)
+    graph = graph.addEdge("c", "b", 10)
+    graph = graph.addEdge("c", "d", 1)
+    graph = graph.addEdge("d", "a", 1)
+    graph = graph.addEdge("d", "b", 10)
+    graph = graph.addEdge("d", "c", 10)
+
+    println(graph.)
+
+  }
+
 }
