@@ -7,7 +7,11 @@
 		revision="0.1"
 		conf="compile"
 		confs="compile, runtime, test, provided, optional, compile-internal, runtime-internal, test-internal, plugin, pom, scala-tool"
+<<<<<<< HEAD
 		date="20190314151020"/>
+=======
+		date="20190311131550"/>
+>>>>>>> c6768287ffcce331d512f180f1a172b257c1cd1c
 	<dependencies>
 		<module organisation="org.scalactic" name="scalactic_2.12">
 			<revision name="3.0.1" status="release" pubdate="20161109215016" resolver="sbt-chain" artresolver="sbt-chain" homepage="http://www.scalatest.org" downloaded="false" searched="false" default="false" conf="default, compile, runtime, default(compile), master" position="2">

@@ -6,6 +6,8 @@
 import java.io.{File, IOException}
 import java.util.Scanner
 
+import scala.collection.immutable.{HashMap, HashSet}
+
 /** Factory for graph instances. */
 object graph
 {
@@ -122,6 +124,10 @@ object graph
 
     /** Returns approximately the quickest way to visit all vertices in a graph. */
     def getLocalTSP(initialTour:Seq[T]):Seq[Edge[T]]
+
+
+    /** Computes the optimal solution to the TSP. */
+    def dynamicTSP():Seq[Edge[T]]
 
 
     /** Returns a string literal of the graph. */
@@ -520,8 +526,8 @@ object graph
 
         for (source <- getVertices) {
           for (destination <- getAdjacent(source)) {
-              iterableOfEdges += new Edge[T](source, destination,
-                getEdgeWeight(source, destination))
+            iterableOfEdges += new Edge[T](source, destination,
+              getEdgeWeight(source, destination))
           }
         }
 
@@ -635,6 +641,116 @@ object graph
         val reverse = tour.slice(tour.indexOf(firstVertex), tour.indexOf(secondVertex))
         val suffix = tour.slice(tour.indexOf(secondVertex), tour.size)
         prefix ++ reverse ++ suffix
+
+      }
+
+
+      /** Computes the optimal solution to the TSP. */
+      def dynamicTSP():Seq[Edge[T]] = {
+
+        var cost = Map[T, Map[Set[T], Int]]()
+        var parent = Map[T, Map[Set[T], T]]()
+        val startingVertex = getVertices.head
+        var subsets = Iterator[Set[T]]()
+        var minCost = scala.Int.MaxValue
+        var currentParent = getVertices.head
+        var optimalTourVertices = Seq[T]()
+        var optimalTour = Seq[Edge[T]]()
+
+        // records every vertex's distance from the starting vertex
+        for (vertex <- getVertices) {
+          // adds each vertex to the map
+          cost += vertex -> Map[Set[T], Int]()
+          parent += vertex -> Map[Set[T], T]()
+          // adds the distance from the starting vertex
+          if (vertex != startingVertex) {
+
+            // records each vertex's distance from the starting vertex
+            val innerCostMap = cost(vertex) + (Set(vertex) ->
+              getEdgeWeight(startingVertex, vertex))
+            cost += vertex -> innerCostMap
+
+            // records the starting vertex as the parent
+            // for each initial distance from the start
+            val innerParentMap = parent(vertex) + (Set(vertex) ->
+              startingVertex)
+            parent += vertex -> innerParentMap
+
+          }
+        }
+
+        for (size <- 2 to getVertices.size) {
+
+          subsets = getVertices.toSet.subsets(size)
+
+          for (subset <- subsets) {
+
+            for (destination <- subset) {
+
+              // smallSet might be {C, D} given {B, C, D}
+              val smallSet = subset - destination
+
+              for (vertex <- smallSet) {
+
+                val innerKey = cost(vertex)
+
+                if (innerKey.contains(smallSet)) {
+
+                  val innerValue = innerKey(smallSet)
+                  val distance = innerValue + getEdgeWeight(vertex, destination)
+
+                  if (distance < minCost) {
+                    currentParent = vertex
+                    minCost = distance
+                  }
+
+                }
+
+              }
+
+              // adds the best option to the cost map
+              val innerCostMap = cost(destination) + (subset -> minCost)
+              cost += destination -> innerCostMap
+              // records the best option's parent for later use
+              val innerParentMap = parent(destination) + (subset -> currentParent)
+              parent += destination -> innerParentMap
+
+              // resets minimum cost to infinity
+              minCost = scala.Int.MaxValue
+
+            }
+
+          }
+
+        }
+
+        // adds the starting vertex
+        optimalTourVertices :+= startingVertex
+        var mostRecentParent = startingVertex
+        var verticesLeftToAdd = getVertices.toSet
+
+        // backtracks through the cost map until a complete path is built
+        while (optimalTourVertices.size < getVertices.size) {
+
+          val innerKey = parent(mostRecentParent)
+          var vertexToRemove = mostRecentParent
+
+          mostRecentParent = innerKey(verticesLeftToAdd)
+          optimalTourVertices :+= mostRecentParent
+
+          verticesLeftToAdd -= vertexToRemove
+
+        }
+
+        // adds the starting vertex to the end
+        optimalTourVertices :+= startingVertex
+
+        // iterates through the vertex list and creates a list of edges
+        for (pair <- optimalTourVertices.sliding(2)) {
+          optimalTour = optimalTour ++ getEdge(pair.head, pair.last)
+        }
+
+        optimalTour
 
       }
 
@@ -1188,6 +1304,116 @@ object graph
       }
 
 
+      /** Computes the optimal solution to the TSP. */
+      def dynamicTSP():Seq[Edge[T]] = {
+
+        var cost = Map[T, Map[Set[T], Int]]()
+        var parent = Map[T, Map[Set[T], T]]()
+        val startingVertex = getVertices.head
+        var subsets = Iterator[Set[T]]()
+        var minCost = scala.Int.MaxValue
+        var currentParent = getVertices.head
+        var optimalTourVertices = Seq[T]()
+        var optimalTour = Seq[Edge[T]]()
+
+        // records every vertex's distance from the starting vertex
+        for (vertex <- getVertices) {
+          // adds each vertex to the map
+          cost += vertex -> Map[Set[T], Int]()
+          parent += vertex -> Map[Set[T], T]()
+          // adds the distance from the starting vertex
+          if (vertex != startingVertex) {
+
+            // records each vertex's distance from the starting vertex
+            val innerCostMap = cost(vertex) + (Set(vertex) ->
+              getEdgeWeight(startingVertex, vertex))
+            cost += vertex -> innerCostMap
+
+            // records the starting vertex as the parent
+            // for each initial distance from the start
+            val innerParentMap = parent(vertex) + (Set(vertex) ->
+              startingVertex)
+            parent += vertex -> innerParentMap
+
+          }
+        }
+
+        for (size <- 2 to getVertices.size) {
+
+          subsets = getVertices.toSet.subsets(size)
+
+          for (subset <- subsets) {
+
+            for (destination <- subset) {
+
+              // smallSet might be {C, D} given {B, C, D}
+              val smallSet = subset - destination
+
+              for (vertex <- smallSet) {
+
+                val innerKey = cost(vertex)
+
+                if (innerKey.contains(smallSet)) {
+
+                  val innerValue = innerKey(smallSet)
+                  val distance = innerValue + getEdgeWeight(vertex, destination)
+
+                  if (distance < minCost) {
+                    currentParent = vertex
+                    minCost = distance
+                  }
+
+                }
+
+              }
+
+              // adds the best option to the cost map
+              val innerCostMap = cost(destination) + (subset -> minCost)
+              cost += destination -> innerCostMap
+              // records the best option's parent for later use
+              val innerParentMap = parent(destination) + (subset -> currentParent)
+              parent += destination -> innerParentMap
+
+              // resets minimum cost to infinity
+              minCost = scala.Int.MaxValue
+
+            }
+
+          }
+
+        }
+
+        // adds the starting vertex
+        optimalTourVertices :+= startingVertex
+        var mostRecentParent = startingVertex
+        var verticesLeftToAdd = getVertices.toSet
+
+        // backtracks through the cost map until a complete path is built
+        while (optimalTourVertices.size < getVertices.size) {
+
+          val innerKey = parent(mostRecentParent)
+          var vertexToRemove = mostRecentParent
+
+          mostRecentParent = innerKey(verticesLeftToAdd)
+          optimalTourVertices :+= mostRecentParent
+
+          verticesLeftToAdd -= vertexToRemove
+
+        }
+
+        // adds the starting vertex to the end
+        optimalTourVertices :+= startingVertex
+
+        // iterates through the vertex list and creates a list of edges
+        for (pair <- optimalTourVertices.sliding(2)) {
+          optimalTour = optimalTour ++ getEdge(pair.head, pair.last)
+        }
+
+        optimalTour
+
+      }
+
+
       /** Returns a string literal of the graph. */
       override def toString:String = {
 
@@ -1209,27 +1435,37 @@ object graph
 
   def main(args: Array[String]): Unit = {
 
-    var graph = Graph[String](true)
-    graph = graph.addVertex("a")
-    graph = graph.addVertex("b")
-    graph = graph.addVertex("c")
-    graph = graph.addVertex("d")
+    var graph = Graph[String](false)
 
-    graph = graph.addEdge("a", "b", 1)
-    graph = graph.addEdge("a", "c", 10)
-    graph = graph.addEdge("a", "d", 10)
-    graph = graph.addEdge("b", "a", 10)
-    graph = graph.addEdge("b", "c", 1)
-    graph = graph.addEdge("b", "d", 10)
-    graph = graph.addEdge("c", "a", 10)
-    graph = graph.addEdge("c", "b", 10)
-    graph = graph.addEdge("c", "d", 1)
-    graph = graph.addEdge("d", "a", 1)
-    graph = graph.addEdge("d", "b", 10)
-    graph = graph.addEdge("d", "c", 10)
 
-    println(graph.)
+    graph = graph.addVertex("steam buns")
+    graph = graph.addVertex("tacos")
+    graph = graph.addVertex("tots")
+    graph = graph.addVertex("poke")
+    graph = graph.addVertex("sushi")
+
+    graph = graph.addEdge("steam buns", "tacos", 1)
+    graph = graph.addEdge("steam buns", "tots", 1)
+    graph = graph.addEdge("steam buns", "poke", 1)
+    graph = graph.addEdge("steam buns", "sushi", 1)
+    graph = graph.addEdge("tacos", "steam buns", 1)
+    graph = graph.addEdge("tacos", "tots", 1)
+    graph = graph.addEdge("tacos", "poke", 1)
+    graph = graph.addEdge("tacos", "sushi", 1)
+    graph = graph.addEdge("tots", "steam buns", 1)
+    graph = graph.addEdge("tots", "tacos", 1)
+    graph = graph.addEdge("tots", "poke", 1)
+    graph = graph.addEdge("tots", "sushi", 1)
+    graph = graph.addEdge("poke", "steam buns", 1)
+    graph = graph.addEdge("poke", "tacos", 1)
+    graph = graph.addEdge("poke", "tots", 1)
+    graph = graph.addEdge("poke", "sushi", 1)
+    graph = graph.addEdge("sushi", "steam buns", 1)
+    graph = graph.addEdge("sushi", "tacos", 1)
+    graph = graph.addEdge("sushi", "tots", 1)
+    graph = graph.addEdge("sushi", "poke", 1)
+
+    print(graph.dynamicTSP())
 
   }
-
 }
