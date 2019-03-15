@@ -4,6 +4,11 @@
     <list default="true" id="ecf95680-fdb1-425a-867d-47dbc07ec7a3" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/scala/graph.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/graph.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/scala-2.12/classes/graph$.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/scala-2.12/classes/graph$.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/scala-2.12/classes/graph$Edge.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/scala-2.12/classes/graph$Edge.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/scala-2.12/classes/graph$Graph$.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/scala-2.12/classes/graph$Graph$.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/scala-2.12/classes/graph$Graph$DirectedGraphImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/scala-2.12/classes/graph$Graph$DirectedGraphImpl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/scala-2.12/classes/graph$Graph$UndirectedGraphImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/scala-2.12/classes/graph$Graph$UndirectedGraphImpl.class" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -72,12 +77,12 @@
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="sbt" value="4" />
-          <entry key="scala" value="37850" />
+          <entry key="scala" value="38222" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="Scala" value="37850" />
+          <entry key="Scala" value="38222" />
           <entry key="sbt" value="4" />
         </counts>
       </usages-collector>
@@ -88,14 +93,19 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/scala/graph.scala">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="420">
-              <caret line="1292" column="47" selection-start-line="1292" selection-start-column="47" selection-end-line="1292" selection-end-column="47" />
+            <state relative-caret-position="381">
+              <caret line="1415" column="19" selection-start-line="1415" selection-start-column="19" selection-end-line="1415" selection-end-column="19" />
               <folding>
                 <element signature="n#!!doc" expanded="true" />
                 <element signature="e#62#96#0" expanded="true" />
               </folding>
             </state>
           </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/.idea/workspace.xml">
+          <provider selected="true" editor-type-id="text-editor" />
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
@@ -134,7 +144,9 @@
       <find>private</find>
       <find>scala.</find>
       <find>newSour</find>
+      <find>5</find>
       <find>print</find>
+      <find>sliding</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -312,6 +324,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1280" height="800" extended-state="0" />
+    <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" weight="0.24959612" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -320,13 +333,13 @@
       <window_info id="Favorites" order="4" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49919224" weight="0.4" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49919224" visible="true" weight="0.33424658" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.0" />
       <window_info anchor="bottom" id="sbt-shell-toolwindow" order="7" weight="0.32876712" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="8" visible="true" weight="0.31917807" />
+      <window_info anchor="bottom" id="Terminal" order="8" weight="0.31917807" />
       <window_info anchor="bottom" id="Event Log" order="9" sideWeight="0.50080776" side_tool="true" weight="0.32876712" />
       <window_info anchor="bottom" id="Version Control" order="10" weight="0.32876712" />
       <window_info anchor="bottom" id="Build" order="11" weight="0.12328767" />
@@ -412,8 +425,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/scala/graph.scala">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="420">
-          <caret line="1292" column="47" selection-start-line="1292" selection-start-column="47" selection-end-line="1292" selection-end-column="47" />
+        <state relative-caret-position="381">
+          <caret line="1415" column="19" selection-start-line="1415" selection-start-column="19" selection-end-line="1415" selection-end-column="19" />
           <folding>
             <element signature="n#!!doc" expanded="true" />
             <element signature="e#62#96#0" expanded="true" />
