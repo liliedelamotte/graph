@@ -85,8 +85,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/scala/graph.scala">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1690">
-              <caret line="1415" column="19" selection-start-line="1415" selection-start-column="19" selection-end-line="1415" selection-end-column="19" />
+            <state relative-caret-position="332">
+              <caret line="1439" lean-forward="true" selection-start-line="1439" selection-end-line="1439" />
               <folding>
                 <element signature="n#!!doc" expanded="true" />
                 <element signature="e#62#96#0" expanded="true" />
@@ -158,7 +158,21 @@
     <navigator proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
     </navigator>
-    <panes />
+    <panes>
+      <pane id="Scope" />
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="graph" type="b2602c69:ProjectViewProjectNode" />
+              <item name="graph" type="462c0819:PsiDirectoryNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+      <pane id="PackagesPane" />
+    </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary" value="ScalaTest" />
@@ -311,7 +325,6 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1280" height="800" extended-state="0" />
-    <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" weight="0.24959612" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -412,8 +425,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/scala/graph.scala">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1690">
-          <caret line="1415" column="19" selection-start-line="1415" selection-start-column="19" selection-end-line="1415" selection-end-column="19" />
+        <state relative-caret-position="332">
+          <caret line="1439" lean-forward="true" selection-start-line="1439" selection-end-line="1439" />
           <folding>
             <element signature="n#!!doc" expanded="true" />
             <element signature="e#62#96#0" expanded="true" />
