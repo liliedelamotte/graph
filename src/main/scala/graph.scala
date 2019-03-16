@@ -1436,39 +1436,4 @@ object graph
       }
     }
   }
-
-  def main(args: Array[String]): Unit = {
-
-    var graph = Graph[String](true)
-
-    graph = graph.addVertex("steam buns")
-    graph = graph.addVertex("tacos")
-    graph = graph.addVertex("tots")
-    graph = graph.addVertex("poke")
-    graph = graph.addVertex("sushi")
-
-    graph = graph.addEdge("steam buns", "tacos", 1)
-    graph = graph.addEdge("steam buns", "tots", 10)
-    graph = graph.addEdge("steam buns", "poke", 10)
-    graph = graph.addEdge("steam buns", "sushi", 10)
-    graph = graph.addEdge("tacos", "steam buns", 10)
-    graph = graph.addEdge("tacos", "tots", 1)
-    graph = graph.addEdge("tacos", "poke", 10)
-    graph = graph.addEdge("tacos", "sushi", 10)
-    graph = graph.addEdge("tots", "steam buns", 10)
-    graph = graph.addEdge("tots", "tacos", 10)
-    graph = graph.addEdge("tots", "poke", 1)
-    graph = graph.addEdge("tots", "sushi", 10)
-    graph = graph.addEdge("poke", "steam buns", 10)
-    graph = graph.addEdge("poke", "tacos", 10)
-    graph = graph.addEdge("poke", "tots", 10)
-    graph = graph.addEdge("poke", "sushi", 1)
-    graph = graph.addEdge("sushi", "steam buns", 1)
-    graph = graph.addEdge("sushi", "tacos", 10)
-    graph = graph.addEdge("sushi", "tots", 10)
-    graph = graph.addEdge("sushi", "poke", 10)
-
-    print(graph.dynamicTSP())
-
-  }
 }
