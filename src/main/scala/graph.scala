@@ -1,12 +1,10 @@
 // ldelamotte17@georgefox.edu
-// Assignment 4
-// 2019-03-05
+// Assignment 5
+// 2019-03-16
 
 
 import java.io.{File, IOException}
 import java.util.Scanner
-
-import scala.collection.immutable.{HashMap, HashSet}
 
 /** Factory for graph instances. */
 object graph
@@ -652,7 +650,7 @@ object graph
         var parent = Map[T, Map[Set[T], T]]()
         val startingVertex = getVertices.head
         var subsets = Iterator[Set[T]]()
-        var minCost = scala.Int.MaxValue
+        var minCost = 100000000
         var currentParent = getVertices.head
         var optimalTourVertices = Seq[T]()
         var optimalTour = Seq[Edge[T]]()
@@ -716,7 +714,7 @@ object graph
               parent += destination -> innerParentMap
 
               // resets minimum cost to infinity
-              minCost = scala.Int.MaxValue
+              minCost = 100000000
 
             }
 
@@ -744,6 +742,9 @@ object graph
 
         // adds the starting vertex to the end
         optimalTourVertices :+= startingVertex
+
+        // reverses the tour to ensure correct ordering of edges
+        optimalTourVertices = optimalTourVertices.reverse
 
         // iterates through the vertex list and creates a list of edges
         for (pair <- optimalTourVertices.sliding(2)) {
@@ -1404,6 +1405,9 @@ object graph
         // adds the starting vertex to the end
         optimalTourVertices :+= startingVertex
 
+        // reverses the tour to ensure correct ordering of edges
+        optimalTourVertices = optimalTourVertices.reverse
+
         // iterates through the vertex list and creates a list of edges
         for (pair <- optimalTourVertices.sliding(2)) {
           optimalTour = optimalTour ++ getEdge(pair.head, pair.last)
@@ -1431,41 +1435,5 @@ object graph
 
       }
     }
-  }
-
-  def main(args: Array[String]): Unit = {
-
-    var graph = Graph[String](false)
-
-
-    graph = graph.addVertex("steam buns")
-    graph = graph.addVertex("tacos")
-    graph = graph.addVertex("tots")
-    graph = graph.addVertex("poke")
-    graph = graph.addVertex("sushi")
-
-    graph = graph.addEdge("steam buns", "tacos", 1)
-    graph = graph.addEdge("steam buns", "tots", 1)
-    graph = graph.addEdge("steam buns", "poke", 1)
-    graph = graph.addEdge("steam buns", "sushi", 1)
-    graph = graph.addEdge("tacos", "steam buns", 1)
-    graph = graph.addEdge("tacos", "tots", 1)
-    graph = graph.addEdge("tacos", "poke", 1)
-    graph = graph.addEdge("tacos", "sushi", 1)
-    graph = graph.addEdge("tots", "steam buns", 1)
-    graph = graph.addEdge("tots", "tacos", 1)
-    graph = graph.addEdge("tots", "poke", 1)
-    graph = graph.addEdge("tots", "sushi", 1)
-    graph = graph.addEdge("poke", "steam buns", 1)
-    graph = graph.addEdge("poke", "tacos", 1)
-    graph = graph.addEdge("poke", "tots", 1)
-    graph = graph.addEdge("poke", "sushi", 1)
-    graph = graph.addEdge("sushi", "steam buns", 1)
-    graph = graph.addEdge("sushi", "tacos", 1)
-    graph = graph.addEdge("sushi", "tots", 1)
-    graph = graph.addEdge("sushi", "poke", 1)
-
-    print(graph.dynamicTSP())
-
   }
 }
