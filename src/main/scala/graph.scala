@@ -524,8 +524,8 @@ object graph
 
         for (source <- getVertices) {
           for (destination <- getAdjacent(source)) {
-              iterableOfEdges += new Edge[T](source, destination,
-                getEdgeWeight(source, destination))
+            iterableOfEdges += new Edge[T](source, destination,
+              getEdgeWeight(source, destination))
           }
         }
 
