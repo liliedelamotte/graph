@@ -27,3 +27,5 @@ exit
 exit
 =======
 >>>>>>> c6768287ffcce331d512f180f1a172b257c1cd1c
+;set _root_.scala.collection.Seq(shellPrompt := { _ => "" },SettingKey[_root_.scala.Option[_root_.sbt.File]]("sbtStructureOutputFile") in _root_.sbt.Global := _root_.scala.Some(_root_.sbt.file("/private/var/folders/jn/qgk8g3w56bs6t12wy9v0sl480000gn/T/sbt-structure.xml")),SettingKey[_root_.java.lang.String]("sbtStructureOptions") in _root_.sbt.Global := "download, resolveClassifiers");apply -cp "/Users/liliedelamotte/Library/Application Support/IdeaIC2018.2/Scala/launcher/sbt-structure-1.0.jar" org.jetbrains.sbt.CreateTasks;*/*:dumpStructure
+exit

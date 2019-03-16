@@ -4,11 +4,7 @@
 		module="graph$sources"
 		revision="0.1"
 		status="integration"
-<<<<<<< HEAD
-		publication="20190314151020"
-=======
-		publication="20190311131550"
->>>>>>> c6768287ffcce331d512f180f1a172b257c1cd1c
+		publication="20190316110656"
 	/>
 	<configurations>
 		<conf name="compile" visibility="public" description=""/>

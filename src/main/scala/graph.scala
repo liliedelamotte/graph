@@ -1312,7 +1312,7 @@ object graph
         var parent = Map[T, Map[Set[T], T]]()
         val startingVertex = getVertices.head
         var subsets = Iterator[Set[T]]()
-        var minCost = scala.Int.MaxValue
+        var minCost = 1000000000
         var currentParent = getVertices.head
         var optimalTourVertices = Seq[T]()
         var optimalTour = Seq[Edge[T]]()
@@ -1376,7 +1376,7 @@ object graph
               parent += destination -> innerParentMap
 
               // resets minimum cost to infinity
-              minCost = scala.Int.MaxValue
+              minCost = 1000000000
 
             }
 
@@ -1407,6 +1407,10 @@ object graph
 
         // reverses the tour to ensure correct ordering of edges
         optimalTourVertices = optimalTourVertices.reverse
+
+        println(cost)
+        println(parent)
+        println(optimalTourVertices)
 
         // iterates through the vertex list and creates a list of edges
         for (pair <- optimalTourVertices.sliding(2)) {
