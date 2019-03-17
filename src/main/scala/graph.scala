@@ -128,6 +128,14 @@ object graph
     def dynamicTSP():Seq[Edge[T]]
 
 
+    /** Computes the optimal solution to the TSP using genetic methods. */
+    def getOptimalTour(popSize:Int, inversionProb:Float, maxIters:Int):Seq[T]
+
+
+    /** Computes the optimal solution to the TSP using genetic methods. */
+    def getOptimalTour:Seq[T]
+
+
     /** Returns a string literal of the graph. */
     override def toString:String
   }
@@ -753,6 +761,21 @@ object graph
 
         optimalTour
 
+      }
+
+      /** Computes the optimal solution to the TSP using genetic methods. */
+      def getOptimalTour(popSize:Int, inversionProb:Float, maxIters:Int):Seq[T] = {
+        var optimalTour = Seq[T]()
+
+        optimalTour
+      }
+
+
+      /** Computes the optimal solution to the TSP using genetic methods. */
+      def getOptimalTour:Seq[T] = {
+        var optimalTour = Seq[T]()
+
+        optimalTour
       }
 
 
@@ -1419,6 +1442,22 @@ object graph
 
         optimalTour
 
+      }
+
+
+      /** Computes the optimal solution to the TSP using genetic methods. */
+      def getOptimalTour(popSize:Int, inversionProb:Float, maxIters:Int):Seq[T] = {
+        var optimalTour = Seq[T]()
+
+        optimalTour
+      }
+
+
+      /** Computes the optimal solution to the TSP using genetic methods. */
+      def getOptimalTour:Seq[T] = {
+        var optimalTour = Seq[T]()
+
+        optimalTour
       }
 
 
