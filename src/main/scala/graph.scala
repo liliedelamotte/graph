@@ -128,11 +128,19 @@ object graph
     def dynamicTSP():Seq[Edge[T]]
 
 
-    /** Computes the optimal solution to the TSP using genetic methods. */
+    /** Computes the optimal solution to the TSP
+      * using the genetic inver-over algorithm.
+      *
+      * About the inver-over algorithm: http://dl.acm.org/citation.cfm?id=668606.
+      */
     def getOptimalTour(popSize:Int, inversionProb:Float, maxIters:Int):Seq[T]
 
 
-    /** Computes the optimal solution to the TSP using genetic methods. */
+    /** Computes the optimal solution to the TSP
+      * using the genetic inver-over algorithm.
+      *
+      * About the inver-over algorithm: http://dl.acm.org/citation.cfm?id=668606.
+      */
     def getOptimalTour:Seq[T]
 
 
@@ -763,7 +771,11 @@ object graph
 
       }
 
-      /** Computes the optimal solution to the TSP using genetic methods. */
+      /** Computes the optimal solution to the TSP
+        * using the genetic inver-over algorithm.
+        *
+        * About the inver-over algorithm: http://dl.acm.org/citation.cfm?id=668606.
+        */
       def getOptimalTour(popSize:Int, inversionProb:Float, maxIters:Int):Seq[T] = {
         var optimalTour = Seq[T]()
 
@@ -771,7 +783,11 @@ object graph
       }
 
 
-      /** Computes the optimal solution to the TSP using genetic methods. */
+      /** Computes the optimal solution to the TSP
+        * using the genetic inver-over algorithm.
+        *
+        * About the inver-over algorithm: http://dl.acm.org/citation.cfm?id=668606.
+        */
       def getOptimalTour:Seq[T] = {
         var optimalTour = Seq[T]()
 
@@ -1445,7 +1461,11 @@ object graph
       }
 
 
-      /** Computes the optimal solution to the TSP using genetic methods. */
+      /** Computes the optimal solution to the TSP
+        * using the genetic inver-over algorithm.
+        *
+        * About the inver-over algorithm: http://dl.acm.org/citation.cfm?id=668606.
+        */
       def getOptimalTour(popSize:Int, inversionProb:Float, maxIters:Int):Seq[T] = {
         var optimalTour = Seq[T]()
 
@@ -1453,7 +1473,11 @@ object graph
       }
 
 
-      /** Computes the optimal solution to the TSP using genetic methods. */
+      /** Computes the optimal solution to the TSP
+        * using the genetic inver-over algorithm.
+        *
+        * About the inver-over algorithm: http://dl.acm.org/citation.cfm?id=668606.
+        */
       def getOptimalTour:Seq[T] = {
         var optimalTour = Seq[T]()
 
