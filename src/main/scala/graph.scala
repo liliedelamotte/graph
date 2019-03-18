@@ -246,7 +246,7 @@ object graph
 
       // add in all the vertices
       val graph =
-        Range(0, vertices.size).foldLeft(emptyGraph)((g,v) => g.addVertex(v))
+        vertices.indices.foldLeft(emptyGraph)((g,v) => g.addVertex(v))
 
       // add in all the edges - they are part of each xml vertex
       vertices.zipWithIndex.foldLeft(graph)((g,t) => addXMLEdges(g, t._1, t._2))
