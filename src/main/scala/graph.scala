@@ -5,7 +5,8 @@
 
 import java.io.{File, IOException}
 import java.util.Scanner
-
+import scala.xml.XML.loadFile
+import scala.xml.Node
 import scala.util.Random
 
 /** Factory for graph instances. */
@@ -228,6 +229,44 @@ object graph
       }
 
       graph
+
+    }
+
+
+    /** Loads a graph from a TSP file. */
+    def fromTSPFile(fileName:String):Graph[Int] = {
+      // create an empty graph
+      val emptyGraph = Graph[Int](false)
+
+      // load the XML file
+      val tspXML = loadFile(fileName)
+
+      // get all the vertices
+      val vertices = tspXML \\ "vertex"
+
+      // add in all the vertices
+      val graph =
+        Range(0, vertices.size).foldLeft(emptyGraph)((g,v) => g.addVertex(v))
+
+      // add in all the edges - they are part of each xml vertex
+      vertices.zipWithIndex.foldLeft(graph)((g,t) => addXMLEdges(g, t._1, t._2))
+
+    }
+
+
+    /** Add in edges assuming the vertices exist. */
+    private def addXMLEdges
+    (graph:Graph[Int], xmlEdges:Node, start:Int):Graph[Int] = {
+
+      // parse all the edges - tuples of (destination, weight)
+      val edges = (xmlEdges \ "edge").map(e =>
+        (e.text.toInt, e.attributes("cost").text.toDouble.toInt))
+
+      // remove the edges that already exist
+      val newEdges = edges.filterNot(e => graph.edgeExists(start, e._1))
+
+      // add in new edges
+      newEdges.foldLeft(graph)((g,e) => g.addEdge(start, e._1, e._2))
 
     }
 
@@ -1526,7 +1565,15 @@ object graph
           }
         }
 
+        optimalTour = population.head
+        for (tour <- population) {
+          if (pathLength(tour).get < pathLength(optimalTour).get) {
+            optimalTour = tour
+          }
+        }
+
         optimalTour
+
       }
 
 
@@ -1536,10 +1583,8 @@ object graph
         * About the inver-over algorithm: http://dl.acm.org/citation.cfm?id=668606.
         */
       def getOptimalTour:Seq[T] = {
-        var optimalTour = Seq[T]()
-        var population = Set[Set[T]]()
-
-        optimalTour
+        // todo why am I getting this error?
+        getOptimalTour(100, 0.02, 10)
       }
 
 
