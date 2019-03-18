@@ -1583,8 +1583,13 @@ object graph
         * About the inver-over algorithm: http://dl.acm.org/citation.cfm?id=668606.
         */
       def getOptimalTour:Seq[T] = {
-        // todo why am I getting this error?
-        getOptimalTour(100, 0.02, 10)
+
+        var popSize:Int = 100
+        var inversionProb = 0.02.toFloat
+        var maxIters:Int = 10
+
+        getOptimalTour(popSize, inversionProb, maxIters)
+
       }
 
 
