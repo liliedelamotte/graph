@@ -6,6 +6,8 @@
 import java.io.{File, IOException}
 import java.util.Scanner
 
+import scala.util.Random
+
 /** Factory for graph instances. */
 object graph
 {
@@ -1447,10 +1449,6 @@ object graph
         // reverses the tour to ensure correct ordering of edges
         optimalTourVertices = optimalTourVertices.reverse
 
-        println(cost)
-        println(parent)
-        println(optimalTourVertices)
-
         // iterates through the vertex list and creates a list of edges
         for (pair <- optimalTourVertices.sliding(2)) {
           optimalTour = optimalTour ++ getEdge(pair.head, pair.last)
@@ -1468,6 +1466,65 @@ object graph
         */
       def getOptimalTour(popSize:Int, inversionProb:Float, maxIters:Int):Seq[T] = {
         var optimalTour = Seq[T]()
+        var population = Seq[Seq[T]]()
+        var startingVertex = getVertices.head
+        var currentTour = (getVertices.toSet - startingVertex).toSeq
+        var random = new Random
+        var done = false
+
+        // creates a set of sets of random tours
+        // todo may need to add the first and last vertex
+        while (population.size < popSize) {
+          var newTour = Random.shuffle(currentTour)
+          // todo is this line below correct? or do I keep shuffling the same tour?
+          currentTour = newTour
+          // adds the starting vertex to the beginning of the tour
+          // newTour +:= startingVertex
+          // adds the new tour to the list of tours
+          population :+= newTour
+        }
+
+        for (i <- maxIters) {
+          for (tour <- population) {
+            var randomNode = tour(random.nextInt(tour.size))
+            var newRandomNode = tour(random.nextInt(tour.size))
+            var otherTour = tour
+            done = false
+            while (!done) {
+              var randomNum = random.nextFloat()
+
+              if (randomNum <= inversionProb) {
+                newRandomNode = tour(random.nextInt(tour.size))
+                while (randomNode != newRandomNode) {
+                  newRandomNode = tour(random.nextInt(tour.size))
+                }
+              }
+              else {
+                var otherTour = population(random.nextInt(popSize))
+                if (randomNode != otherTour.head) {
+                  newRandomNode = otherTour(otherTour.indexOf(randomNode) - 1)
+                }
+                else {
+                  newRandomNode = otherTour(otherTour.indexOf(randomNode) + 1)
+                }
+              }
+
+              var indexOfRandomNode = tour.indexOf(randomNode)
+              var indexOfNewRandomNode = tour.indexOf(newRandomNode)
+              if (indexOfRandomNode + 1 == indexOfNewRandomNode
+                || indexOfRandomNode - 1 == indexOfNewRandomNode) {
+                done = true
+              }
+              else {
+                tour = tour.take(indexOfRandomNode) ++ Seq(newRandomNode) ++ tour.drop(indexOfNewRandomNode)
+              }
+
+              if (pathLength(otherTour).get < pathLength(tour).get) {
+                tour = otherTour
+              }
+            }
+          }
+        }
 
         optimalTour
       }
@@ -1480,6 +1537,7 @@ object graph
         */
       def getOptimalTour:Seq[T] = {
         var optimalTour = Seq[T]()
+        var population = Set[Set[T]]()
 
         optimalTour
       }
@@ -1502,5 +1560,24 @@ object graph
 
       }
     }
+  }
+
+  def main(args: Array[String]): Unit = {
+    var graph = Graph[Int](false)
+
+    graph = graph.addVertex(1)
+    graph = graph.addVertex(2)
+    graph = graph.addVertex(3)
+    graph = graph.addVertex(4)
+
+
+    var float = Float
+    graph = graph.addEdge(1, 2, 10)
+    graph = graph.addEdge(1, 3, 10)
+    graph = graph.addEdge(1, 4, 10)
+    graph = graph.addEdge(2, 3, 10)
+    graph = graph.addEdge(2, 4, 10)
+    graph = graph.addEdge(3, 4, 10)
+
   }
 }
