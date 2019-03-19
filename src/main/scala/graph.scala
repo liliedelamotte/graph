@@ -1518,17 +1518,13 @@ object graph
         var done = false
 
         // creates a set of sets of random tours
-        // todo may need to add the first and last vertex
         while (population.size < popSize) {
           var newTour = Random.shuffle(currentTour)
-          // currentTour = newTour
-          // adds the starting vertex to the beginning of the tour
-          // newTour +:= startingVertex
           // adds the new tour to the list of tours
           population :+= newTour
         }
 
-        for (iteration <- maxIters) {
+        for (i <- 0 to maxIters) {
           for (tour <- population) {
             val randomNode = tour(random.nextInt(tour.size))
             var newRandomNode = tour(random.nextInt(tour.size))
@@ -1561,12 +1557,16 @@ object graph
                 done = true
               }
               else {
-                currentBestTour = tour.take(indexOfRandomNode) ++ Seq(newRandomNode) ++ tour.drop(indexOfNewRandomNode)
+                currentBestTour = tour.take(indexOfRandomNode) ++
+                  Seq(newRandomNode) ++ tour.drop(indexOfNewRandomNode)
               }
 
               if (pathLength(otherTour).get < pathLength(tour).get) {
                 currentBestTour = otherTour
               }
+
+              currentBestTour :+= startingVertex
+              currentBestTour +:= startingVertex
 
               bestPopulation :+= currentBestTour
 
@@ -1574,10 +1574,12 @@ object graph
           }
         }
 
-        optimalTour = population.head
-        for (tour <- population) {
-          if (pathLength(tour).get < pathLength(optimalTour).get) {
-            optimalTour = tour
+        optimalTour = bestPopulation.head
+        for (tour <- bestPopulation) {
+          if (pathLength(tour).isDefined && pathLength(optimalTour).isDefined) {
+            if (pathLength(tour).get < pathLength(optimalTour).get) {
+              optimalTour = tour
+            }
           }
         }
 
@@ -1629,14 +1631,14 @@ object graph
     graph = graph.addVertex(3)
     graph = graph.addVertex(4)
 
-
-    var float = Float
-    graph = graph.addEdge(1, 2, 10)
+    graph = graph.addEdge(1, 2, 1)
     graph = graph.addEdge(1, 3, 10)
-    graph = graph.addEdge(1, 4, 10)
-    graph = graph.addEdge(2, 3, 10)
+    graph = graph.addEdge(1, 4, 1)
+    graph = graph.addEdge(2, 3, 1)
     graph = graph.addEdge(2, 4, 10)
-    graph = graph.addEdge(3, 4, 10)
+    graph = graph.addEdge(3, 4, 1)
+
+    println(graph.getOptimalTour)
 
   }
 }
