@@ -1512,9 +1512,9 @@ object graph
         var population = Seq[Seq[T]]()
         var bestPopulation = Seq[Seq[T]]()
         var currentBestTour = Seq[T]()
-        var startingVertex = getVertices.head
-        var currentTour = (getVertices.toSet - startingVertex).toSeq
-        var random = new Random
+        val startingVertex = getVertices.head
+        val currentTour = (getVertices.toSet - startingVertex).toSeq
+        val random = new Random
         var done = false
 
         // creates a set of sets of random tours
@@ -1528,15 +1528,15 @@ object graph
           population :+= newTour
         }
 
-        for (i <- maxIters) {
+        for (iteration <- maxIters) {
           for (tour <- population) {
-            var randomNode = tour(random.nextInt(tour.size))
+            val randomNode = tour(random.nextInt(tour.size))
             var newRandomNode = tour(random.nextInt(tour.size))
-            var otherTour = tour
+            val otherTour = tour
             currentBestTour = tour
             done = false
             while (!done) {
-              var randomNum = random.nextFloat()
+              val randomNum = random.nextFloat()
 
               if (randomNum <= inversionProb) {
                 newRandomNode = tour(random.nextInt(tour.size))
@@ -1545,7 +1545,7 @@ object graph
                 }
               }
               else {
-                var otherTour = population(random.nextInt(popSize))
+                val otherTour = population(random.nextInt(popSize))
                 if (randomNode != otherTour.head) {
                   newRandomNode = otherTour(otherTour.indexOf(randomNode) - 1)
                 }
@@ -1554,8 +1554,8 @@ object graph
                 }
               }
 
-              var indexOfRandomNode = tour.indexOf(randomNode)
-              var indexOfNewRandomNode = tour.indexOf(newRandomNode)
+              val indexOfRandomNode = tour.indexOf(randomNode)
+              val indexOfNewRandomNode = tour.indexOf(newRandomNode)
               if (indexOfRandomNode + 1 == indexOfNewRandomNode
                 || indexOfRandomNode - 1 == indexOfNewRandomNode) {
                 done = true
