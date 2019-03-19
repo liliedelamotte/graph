@@ -819,8 +819,82 @@ object graph
         */
       def getOptimalTour(popSize:Int, inversionProb:Float, maxIters:Int):Seq[T] = {
         var optimalTour = Seq[T]()
+        var population = Seq[Seq[T]]()
+        var bestPopulation = Seq[Seq[T]]()
+        var currentBestTour = Seq[T]()
+        val startingVertex = getVertices.head
+        val currentTour = (getVertices.toSet - startingVertex).toSeq
+        val random = new Random
+        var done = false
+
+        // creates a set of sets of random tours
+        while (population.size < popSize) {
+          var newTour = Random.shuffle(currentTour)
+          // adds the new tour to the list of tours
+          population :+= newTour
+        }
+
+        for (i <- 0 to maxIters) {
+          for (tour <- population) {
+            val randomNode = tour(random.nextInt(tour.size))
+            var newRandomNode = tour(random.nextInt(tour.size))
+            val otherTour = tour
+            currentBestTour = tour
+            done = false
+            while (!done) {
+              val randomNum = random.nextFloat()
+
+              if (randomNum <= inversionProb) {
+                newRandomNode = tour(random.nextInt(tour.size))
+                while (randomNode != newRandomNode) {
+                  newRandomNode = tour(random.nextInt(tour.size))
+                }
+              }
+              else {
+                val otherTour = population(random.nextInt(popSize))
+                if (randomNode != otherTour.head) {
+                  newRandomNode = otherTour(otherTour.indexOf(randomNode) - 1)
+                }
+                else {
+                  newRandomNode = otherTour(otherTour.indexOf(randomNode) + 1)
+                }
+              }
+
+              val indexOfRandomNode = tour.indexOf(randomNode)
+              val indexOfNewRandomNode = tour.indexOf(newRandomNode)
+              if (indexOfRandomNode + 1 == indexOfNewRandomNode
+                || indexOfRandomNode - 1 == indexOfNewRandomNode) {
+                done = true
+              }
+              else {
+                currentBestTour = tour.take(indexOfRandomNode) ++
+                  Seq(newRandomNode) ++ tour.drop(indexOfNewRandomNode)
+              }
+
+              if (pathLength(otherTour).get < pathLength(tour).get) {
+                currentBestTour = otherTour
+              }
+
+              currentBestTour :+= startingVertex
+              currentBestTour +:= startingVertex
+
+              bestPopulation :+= currentBestTour
+
+            }
+          }
+        }
+
+        optimalTour = bestPopulation.head
+        for (tour <- bestPopulation) {
+          if (pathLength(tour).isDefined && pathLength(optimalTour).isDefined) {
+            if (pathLength(tour).get < pathLength(optimalTour).get) {
+              optimalTour = tour
+            }
+          }
+        }
 
         optimalTour
+
       }
 
 
