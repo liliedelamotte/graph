@@ -830,9 +830,13 @@ object graph
         * About the inver-over algorithm: http://dl.acm.org/citation.cfm?id=668606.
         */
       def getOptimalTour:Seq[T] = {
-        var optimalTour = Seq[T]()
 
-        optimalTour
+        var popSize:Int = 100
+        var inversionProb = 0.02.toFloat
+        var maxIters:Int = 10
+
+        getOptimalTour(popSize, inversionProb, maxIters)
+
       }
 
 
@@ -1506,6 +1510,8 @@ object graph
       def getOptimalTour(popSize:Int, inversionProb:Float, maxIters:Int):Seq[T] = {
         var optimalTour = Seq[T]()
         var population = Seq[Seq[T]]()
+        var bestPopulation = Seq[Seq[T]]()
+        var currentBestTour = Seq[T]()
         var startingVertex = getVertices.head
         var currentTour = (getVertices.toSet - startingVertex).toSeq
         var random = new Random
@@ -1515,8 +1521,7 @@ object graph
         // todo may need to add the first and last vertex
         while (population.size < popSize) {
           var newTour = Random.shuffle(currentTour)
-          // todo is this line below correct? or do I keep shuffling the same tour?
-          currentTour = newTour
+          // currentTour = newTour
           // adds the starting vertex to the beginning of the tour
           // newTour +:= startingVertex
           // adds the new tour to the list of tours
@@ -1528,6 +1533,7 @@ object graph
             var randomNode = tour(random.nextInt(tour.size))
             var newRandomNode = tour(random.nextInt(tour.size))
             var otherTour = tour
+            currentBestTour = tour
             done = false
             while (!done) {
               var randomNum = random.nextFloat()
@@ -1555,12 +1561,15 @@ object graph
                 done = true
               }
               else {
-                tour = tour.take(indexOfRandomNode) ++ Seq(newRandomNode) ++ tour.drop(indexOfNewRandomNode)
+                currentBestTour = tour.take(indexOfRandomNode) ++ Seq(newRandomNode) ++ tour.drop(indexOfNewRandomNode)
               }
 
               if (pathLength(otherTour).get < pathLength(tour).get) {
-                tour = otherTour
+                currentBestTour = otherTour
               }
+
+              bestPopulation :+= currentBestTour
+
             }
           }
         }
