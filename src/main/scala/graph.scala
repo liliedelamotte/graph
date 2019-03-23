@@ -1719,27 +1719,53 @@ object graph
 
   def main(args: Array[String]): Unit = {
 
-    var EIL101 = Graph.fromTSPFile("eil101.xml")
-    println("Graph: EIL101")
-    var currentTime = System.currentTimeMillis()
-    println("Tour: " + EIL101.getOptimalTour)
-    var endTime = System.currentTimeMillis()
+    var totalTime:Long = 0
+    var shortestPathLength:Long = 100000
+
+    val EIL101 = Graph.fromTSPFile("eil101.xml")
+
+    for (i <- 0 to 10) {
+
+      val currentTime = System.currentTimeMillis()
+      val tour = EIL101.getOptimalTour
+      val endTime = System.currentTimeMillis()
+      totalTime += endTime - currentTime
+
+      if (EIL101.pathLength(tour).isDefined) {
+        val currentPathLength = EIL101.pathLength(tour).get
+        if (currentPathLength < shortestPathLength) {
+          shortestPathLength = currentPathLength
+        }
+      }
+
+    }
+
     println("My path length: " + EIL101.pathLength(EIL101.getOptimalTour) + ".")
     println("Optimal path length: 629.")
-    println("Total time: "
-      + (endTime - currentTime) / 1000 + " seconds.\n")
+    println("Average time over 10 runs: " + totalTime / 10 + " milliseconds.")
 
 
+    totalTime = 0
 
     var KROA100 = Graph.fromTSPFile("kroA100.xml")
-    println("Graph: KROA100")
-    currentTime = System.currentTimeMillis()
-    println("Tour: " + KROA100.getOptimalTour)
-    endTime = System.currentTimeMillis()
+
+    for (i <- 0 to 10) {
+      val currentTime = System.currentTimeMillis()
+      val tour = KROA100.getOptimalTour
+      val endTime = System.currentTimeMillis()
+      totalTime += endTime - currentTime
+
+      if (KROA100.pathLength(tour).isDefined) {
+        val currentPathLength = EIL101.pathLength(tour).get
+        if (currentPathLength < shortestPathLength) {
+          shortestPathLength = currentPathLength
+        }
+      }
+    }
+
     println("Path length: " + KROA100.pathLength(KROA100.getOptimalTour) + ".")
-    println("Optimal path length: 21282")
-    println("Total time: "
-      + (endTime - currentTime) / 1000 + " seconds.")
+    println("Optimal path length: 21282.")
+    println("Average time over 10 runs: " + totalTime / 10 + " milliseconds.")
 
   }
 }
