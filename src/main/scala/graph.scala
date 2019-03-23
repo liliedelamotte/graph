@@ -823,13 +823,13 @@ object graph
         var bestPopulation = Seq[Seq[T]]()
         var currentBestTour = Seq[T]()
         val startingVertex = getVertices.head
-        val currentTour = (getVertices.toSet - startingVertex).toSeq
+        val initialTour = (getVertices.toSet - startingVertex).toSeq
         val random = new Random
         var done = false
 
         // creates a set of sets of random tours
         while (population.size < popSize) {
-          var newTour = Random.shuffle(currentTour)
+          var newTour = Random.shuffle(initialTour)
           // adds the new tour to the list of tours
           population :+= newTour
         }
@@ -851,36 +851,46 @@ object graph
                 }
               }
               else {
+
                 val otherTour = population(random.nextInt(popSize))
+
                 if (randomNode != otherTour.head) {
                   newRandomNode = otherTour(otherTour.indexOf(randomNode) - 1)
                 }
                 else {
                   newRandomNode = otherTour(otherTour.indexOf(randomNode) + 1)
                 }
+
               }
 
               val indexOfRandomNode = tour.indexOf(randomNode)
               val indexOfNewRandomNode = tour.indexOf(newRandomNode)
+
+              // swapping is completed if the two selected
+              // nodes are already next to each other
               if (indexOfRandomNode + 1 == indexOfNewRandomNode
                 || indexOfRandomNode - 1 == indexOfNewRandomNode) {
                 done = true
               }
               else {
-                currentBestTour = tour.take(indexOfRandomNode) ++
-                  Seq(newRandomNode) ++ tour.drop(indexOfNewRandomNode)
+                currentBestTour = currentBestTour.filterNot(vertex => vertex == newRandomNode)
+                currentBestTour = currentBestTour.take(indexOfNewRandomNode) ++
+                  Seq(newRandomNode) ++ currentBestTour.drop(indexOfNewRandomNode)
               }
 
+              // determines if the swapped tour is shorter that the original
               if (pathLength(otherTour).get < pathLength(tour).get) {
                 currentBestTour = otherTour
               }
 
-              currentBestTour :+= startingVertex
-              currentBestTour +:= startingVertex
-
-              bestPopulation :+= currentBestTour
-
             }
+
+            // bookends the tour with the starting and ending vertex
+            currentBestTour :+= startingVertex
+            currentBestTour +:= startingVertex
+
+            bestPopulation :+= currentBestTour
+
           }
         }
 
@@ -1587,13 +1597,13 @@ object graph
         var bestPopulation = Seq[Seq[T]]()
         var currentBestTour = Seq[T]()
         val startingVertex = getVertices.head
-        val currentTour = (getVertices.toSet - startingVertex).toSeq
+        val initialTour = (getVertices.toSet - startingVertex).toSeq
         val random = new Random
         var done = false
 
         // creates a set of sets of random tours
         while (population.size < popSize) {
-          var newTour = Random.shuffle(currentTour)
+          var newTour = Random.shuffle(initialTour)
           // adds the new tour to the list of tours
           population :+= newTour
         }
@@ -1615,36 +1625,46 @@ object graph
                 }
               }
               else {
+
                 val otherTour = population(random.nextInt(popSize))
+
                 if (randomNode != otherTour.head) {
                   newRandomNode = otherTour(otherTour.indexOf(randomNode) - 1)
                 }
                 else {
                   newRandomNode = otherTour(otherTour.indexOf(randomNode) + 1)
                 }
+
               }
 
               val indexOfRandomNode = tour.indexOf(randomNode)
               val indexOfNewRandomNode = tour.indexOf(newRandomNode)
+
+              // swapping is completed if the two selected
+              // nodes are already next to each other
               if (indexOfRandomNode + 1 == indexOfNewRandomNode
                 || indexOfRandomNode - 1 == indexOfNewRandomNode) {
                 done = true
               }
               else {
-                currentBestTour = tour.take(indexOfRandomNode) ++
-                  Seq(newRandomNode) ++ tour.drop(indexOfNewRandomNode)
+                currentBestTour = currentBestTour.filterNot(vertex => vertex == newRandomNode)
+                currentBestTour = currentBestTour.take(indexOfNewRandomNode) ++
+                  Seq(newRandomNode) ++ currentBestTour.drop(indexOfNewRandomNode)
               }
 
+              // determines if the swapped tour is shorter that the original
               if (pathLength(otherTour).get < pathLength(tour).get) {
                 currentBestTour = otherTour
               }
 
-              currentBestTour :+= startingVertex
-              currentBestTour +:= startingVertex
-
-              bestPopulation :+= currentBestTour
-
             }
+
+            // bookends the tour with the starting and ending vertex
+            currentBestTour :+= startingVertex
+            currentBestTour +:= startingVertex
+
+            bestPopulation :+= currentBestTour
+
           }
         }
 
@@ -1698,21 +1718,28 @@ object graph
   }
 
   def main(args: Array[String]): Unit = {
-    var graph = Graph[Int](false)
 
-    graph = graph.addVertex(1)
-    graph = graph.addVertex(2)
-    graph = graph.addVertex(3)
-    graph = graph.addVertex(4)
+    var EIL101 = Graph.fromTSPFile("eil101.xml")
+    println("Graph: EIL101")
+    var currentTime = System.currentTimeMillis()
+    println("Tour: " + EIL101.getOptimalTour)
+    var endTime = System.currentTimeMillis()
+    println("My path length: " + EIL101.pathLength(EIL101.getOptimalTour) + ".")
+    println("Optimal path length: 629.")
+    println("Total time: "
+      + (endTime - currentTime) / 1000 + " seconds.\n")
 
-    graph = graph.addEdge(1, 2, 1)
-    graph = graph.addEdge(1, 3, 10)
-    graph = graph.addEdge(1, 4, 1)
-    graph = graph.addEdge(2, 3, 1)
-    graph = graph.addEdge(2, 4, 10)
-    graph = graph.addEdge(3, 4, 1)
 
-    println(graph.getOptimalTour)
+
+    var KROA100 = Graph.fromTSPFile("kroA100.xml")
+    println("Graph: KROA100")
+    currentTime = System.currentTimeMillis()
+    println("Tour: " + KROA100.getOptimalTour)
+    endTime = System.currentTimeMillis()
+    println("Path length: " + KROA100.pathLength(KROA100.getOptimalTour) + ".")
+    println("Optimal path length: 21282")
+    println("Total time: "
+      + (endTime - currentTime) / 1000 + " seconds.")
 
   }
 }
