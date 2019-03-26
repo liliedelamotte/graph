@@ -1600,6 +1600,9 @@ object graph
         val initialTour = (getVertices.toSet - startingVertex).toSeq
         val random = new Random
         var done = false
+        // todo remove code below
+        var inversions = 0
+        var iterations = 0
 
         // creates a set of sets of random tours
         while (population.size < popSize) {
@@ -1650,6 +1653,7 @@ object graph
                 currentBestTour = currentBestTour.filterNot(vertex => vertex == newRandomNode)
                 currentBestTour = currentBestTour.take(indexOfNewRandomNode) ++
                   Seq(newRandomNode) ++ currentBestTour.drop(indexOfNewRandomNode)
+                inversions += 1
               }
 
               // determines if the swapped tour is shorter that the original
@@ -1677,6 +1681,7 @@ object graph
           }
         }
 
+        println("Num inversions: " + inversions + ".")
         optimalTour
 
       }
@@ -1741,8 +1746,7 @@ object graph
     }
 
     println("My path length: " + EIL101.pathLength(EIL101.getOptimalTour) + ".")
-    println("Optimal path length: 629.")
-    println("Average time over 10 runs: " + totalTime / 10 + " milliseconds.")
+    println("Average time over 10 runs: " + totalTime / 1000 + " seconds.")
 
 
     totalTime = 0
@@ -1764,8 +1768,7 @@ object graph
     }
 
     println("Path length: " + KROA100.pathLength(KROA100.getOptimalTour) + ".")
-    println("Optimal path length: 21282.")
-    println("Average time over 10 runs: " + totalTime / 10 + " milliseconds.")
+    println("Average time over 10 runs: " + totalTime / 1000 + " seconds.")
 
   }
 }
