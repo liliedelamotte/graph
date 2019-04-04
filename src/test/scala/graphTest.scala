@@ -5,17 +5,88 @@ class graphTest extends FunSuite {
 
   test("testDirectedIsDirected") {
 
-    val graph = Graph[Int](true)
-    assert(graph.isDirected)
+        var graph = Graph[Int](false)
+
+        graph = graph.addVertex(1)
+        graph = graph.addVertex(2)
+        graph = graph.addVertex(3)
+        graph = graph.addVertex(4)
+
+        graph = graph.addEdge(1, 2, 1)
+        graph = graph.addEdge(1, 3, 10)
+        graph = graph.addEdge(1, 4, 1)
+        graph = graph.addEdge(2, 3, 1)
+        graph = graph.addEdge(2, 4, 10)
+        graph = graph.addEdge(3, 4, 1)
+
+//        var shortestPathLength:Long = 100000
+//
+//        val EIL101 = Graph.fromTSPFile("eil101.xml")
+//
+//        for (i <- 0 to 10) {
+//
+//          val tour = EIL101.getOptimalTour
+//
+//          if (EIL101.pathLength(tour).isDefined) {
+//            val currentPathLength = EIL101.pathLength(tour).get
+//            if (currentPathLength < shortestPathLength) {
+//              shortestPathLength = currentPathLength
+//            }
+//          }
+//
+//        }
+//
+//        println("My path length: " + EIL101.pathLength(EIL101.getOptimalTour) + ".")
+//
+//
+//        var KROA100 = Graph.fromTSPFile("kroA100.xml")
+//
+//        for (i <- 0 to 10) {
+//          val tour = KROA100.getOptimalTour
+//
+//          if (KROA100.pathLength(tour).isDefined) {
+//            val currentPathLength = EIL101.pathLength(tour).get
+//            if (currentPathLength < shortestPathLength) {
+//              shortestPathLength = currentPathLength
+//            }
+//          }
+//        }
+//
+//        println("Path length: " + KROA100.pathLength(KROA100.getOptimalTour) + ".\n")
 
   }
 
   test("testDirectedGetVertices") {
 
-    var graph = Graph[Int](true)
-    graph = graph.addVertex(1)
-    graph = graph.addVertex(2)
-    assert(graph.getVertices.size == 2)
+    var graph = Graph[String](true)
+    graph = graph.addVertex("steam buns")
+    graph = graph.addVertex("tacos")
+    graph = graph.addVertex("tots")
+    graph = graph.addVertex("poke")
+    graph = graph.addVertex("sushi")
+    graph = graph.addEdge("steam buns", "tacos", 1)
+    graph = graph.addEdge("steam buns", "tots", 10)
+    graph = graph.addEdge("steam buns", "poke", 10)
+    graph = graph.addEdge("steam buns", "sushi", 10)
+    graph = graph.addEdge("tacos", "steam buns", 10)
+    graph = graph.addEdge("tacos", "tots", 1)
+    graph = graph.addEdge("tacos", "poke", 10)
+    graph = graph.addEdge("tacos", "sushi", 10)
+    graph = graph.addEdge("tots", "steam buns", 10)
+    graph = graph.addEdge("tots", "tacos", 10)
+    graph = graph.addEdge("tots", "poke", 1)
+    graph = graph.addEdge("tots", "sushi", 10)
+    graph = graph.addEdge("poke", "steam buns", 10)
+    graph = graph.addEdge("poke", "tacos", 10)
+    graph = graph.addEdge("poke", "tots", 10)
+    graph = graph.addEdge("poke", "sushi", 1)
+    graph = graph.addEdge("sushi", "steam buns", 1)
+    graph = graph.addEdge("sushi", "tacos", 10)
+    graph = graph.addEdge("sushi", "tots", 10)
+    graph = graph.addEdge("sushi", "poke", 10)
+
+
+    println("best: " + graph.getOptimalTour + "\n")
 
   }
 

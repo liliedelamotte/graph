@@ -1,10 +1,13 @@
 // ldelamotte17@georgefox.edu
-// Assignment 5
-// 2019-03-16
+// Assignment 6
+// 2019-04-04
 
 
 import java.io.{File, IOException}
 import java.util.Scanner
+import scala.xml.XML.loadFile
+import scala.xml.Node
+import scala.util.Random
 
 /** Factory for graph instances. */
 object graph
@@ -128,6 +131,22 @@ object graph
     def dynamicTSP():Seq[Edge[T]]
 
 
+    /** Computes the optimal solution to the TSP
+      * using the genetic inver-over algorithm.
+      *
+      * About the inver-over algorithm: http://dl.acm.org/citation.cfm?id=668606.
+      */
+    def getOptimalTour(popSize:Int, inversionProb:Float, maxIters:Int):Seq[Edge[T]]
+
+
+    /** Computes the optimal solution to the TSP
+      * using the genetic inver-over algorithm.
+      *
+      * About the inver-over algorithm: http://dl.acm.org/citation.cfm?id=668606.
+      */
+     def getOptimalTour:Seq[Edge[T]]
+
+
     /** Returns a string literal of the graph. */
     override def toString:String
   }
@@ -210,6 +229,44 @@ object graph
       }
 
       graph
+
+    }
+
+
+    /** Loads a graph from a TSP file. */
+    def fromTSPFile(fileName:String):Graph[Int] = {
+      // create an empty graph
+      val emptyGraph = Graph[Int](false)
+
+      // load the XML file
+      val tspXML = loadFile(fileName)
+
+      // get all the vertices
+      val vertices = tspXML \\ "vertex"
+
+      // add in all the vertices
+      val graph =
+        vertices.indices.foldLeft(emptyGraph)((g,v) => g.addVertex(v))
+
+      // add in all the edges - they are part of each xml vertex
+      vertices.zipWithIndex.foldLeft(graph)((g,t) => addXMLEdges(g, t._1, t._2))
+
+    }
+
+
+    /** Add in edges assuming the vertices exist. */
+    private def addXMLEdges
+    (graph:Graph[Int], xmlEdges:Node, start:Int):Graph[Int] = {
+
+      // parse all the edges - tuples of (destination, weight)
+      val edges = (xmlEdges \ "edge").map(e =>
+        (e.text.toInt, e.attributes("cost").text.toDouble.toInt))
+
+      // remove the edges that already exist
+      val newEdges = edges.filterNot(e => graph.edgeExists(start, e._1))
+
+      // add in new edges
+      newEdges.foldLeft(graph)((g,e) => g.addEdge(start, e._1, e._2))
 
     }
 
@@ -752,6 +809,121 @@ object graph
         }
 
         optimalTour
+
+      }
+
+      /** Computes the optimal solution to the TSP
+        * using the genetic inver-over algorithm.
+        *
+        * About the inver-over algorithm: http://dl.acm.org/citation.cfm?id=668606.
+        */
+      def getOptimalTour(popSize:Int, inversionProb:Float, maxIters:Int):Seq[Edge[T]] = {
+        var optimalTourVertices = Seq[T]()
+        var optimalTour = Seq[Edge[T]]()
+        var population = Seq[Seq[T]]()
+        var bestPopulation = Seq[Seq[T]]()
+        var currentBestTour = Seq[T]()
+        val startingVertex = getVertices.head
+        val initialTour = (getVertices.toSet - startingVertex).toSeq
+        val random = new Random
+        var done = false
+
+        // creates a set of sets of random tours
+        while (population.size < popSize) {
+          var newTour = Random.shuffle(initialTour)
+          // adds the new tour to the list of tours
+          population :+= newTour
+        }
+
+        for (i <- 0 to maxIters) {
+          for (tour <- population) {
+            val randomNode = tour(random.nextInt(tour.size))
+            var newRandomNode = tour(random.nextInt(tour.size))
+            val otherTour = tour
+            currentBestTour = tour
+            done = false
+            while (!done) {
+              val randomNum = random.nextFloat()
+
+              if (randomNum <= inversionProb) {
+                newRandomNode = tour(random.nextInt(tour.size))
+                while (randomNode != newRandomNode) {
+                  newRandomNode = tour(random.nextInt(tour.size))
+                }
+              }
+              else {
+
+                val otherTour = population(random.nextInt(popSize))
+
+                if (randomNode != otherTour.head) {
+                  newRandomNode = otherTour(otherTour.indexOf(randomNode) - 1)
+                }
+                else {
+                  newRandomNode = otherTour(otherTour.indexOf(randomNode) + 1)
+                }
+
+              }
+
+              val indexOfRandomNode = tour.indexOf(randomNode)
+              val indexOfNewRandomNode = tour.indexOf(newRandomNode)
+
+              // swapping is completed if the two selected
+              // nodes are already next to each other
+              if (indexOfRandomNode + 1 == indexOfNewRandomNode
+                || indexOfRandomNode - 1 == indexOfNewRandomNode) {
+                done = true
+              }
+              else {
+                currentBestTour = currentBestTour.filterNot(vertex => vertex == newRandomNode)
+                currentBestTour = currentBestTour.take(indexOfNewRandomNode) ++
+                  Seq(newRandomNode) ++ currentBestTour.drop(indexOfNewRandomNode)
+              }
+
+              // determines if the swapped tour is shorter that the original
+              if (pathLength(otherTour).get < pathLength(currentBestTour).get) {
+                currentBestTour = otherTour
+              }
+
+            }
+
+            // bookends the tour with the starting and ending vertex
+            currentBestTour :+= startingVertex
+            currentBestTour +:= startingVertex
+            bestPopulation :+= currentBestTour
+
+          }
+        }
+
+        optimalTourVertices = bestPopulation.head
+        for (tour <- bestPopulation) {
+          if (pathLength(tour).isDefined && pathLength(optimalTourVertices).isDefined) {
+            if (pathLength(tour).get < pathLength(optimalTourVertices).get) {
+              optimalTourVertices = tour
+            }
+          }
+        }
+
+        for (pair <- optimalTourVertices.sliding(2)) {
+          optimalTour = optimalTour ++ getEdge(pair.head, pair.last)
+        }
+
+        optimalTour
+
+      }
+
+
+      /** Computes the optimal solution to the TSP
+        * using the genetic inver-over algorithm.
+        *
+        * About the inver-over algorithm: http://dl.acm.org/citation.cfm?id=668606.
+        */
+      def getOptimalTour:Seq[Edge[T]] = {
+
+        var popSize:Int = 100
+        var inversionProb = 0.02.toFloat
+        var maxIters:Int = 10
+
+        getOptimalTour(popSize, inversionProb, maxIters)
 
       }
 
@@ -1408,16 +1580,128 @@ object graph
         // reverses the tour to ensure correct ordering of edges
         optimalTourVertices = optimalTourVertices.reverse
 
-        println(cost)
-        println(parent)
-        println(optimalTourVertices)
-
         // iterates through the vertex list and creates a list of edges
         for (pair <- optimalTourVertices.sliding(2)) {
           optimalTour = optimalTour ++ getEdge(pair.head, pair.last)
         }
 
         optimalTour
+
+      }
+
+
+      /** Computes the optimal solution to the TSP
+        * using the genetic inver-over algorithm.
+        *
+        * About the inver-over algorithm: http://dl.acm.org/citation.cfm?id=668606.
+        */
+       def getOptimalTour(popSize:Int, inversionProb:Float, maxIters:Int):Seq[Edge[T]] = {
+        var optimalTourVertices = Seq[T]()
+        var optimalTour = Seq[Edge[T]]()
+        var population = Seq[Seq[T]]()
+        var bestPopulation = Seq[Seq[T]]()
+        var currentBestTour = Seq[T]()
+        val startingVertex = getVertices.head
+        val initialTour = (getVertices.toSet - startingVertex).toSeq
+        val random = new Random
+        var done = false
+
+        // creates a set of sets of random tours
+        while (population.size < popSize) {
+          var newTour = Random.shuffle(initialTour)
+          // adds the new tour to the list of tours
+          population :+= newTour
+        }
+
+        for (i <- 0 to maxIters) {
+          for (tour <- population) {
+            val randomNode = tour(random.nextInt(tour.size))
+            var newRandomNode = tour(random.nextInt(tour.size))
+            val otherTour = tour
+            currentBestTour = tour
+            done = false
+            while (!done) {
+              val randomNum = random.nextFloat()
+
+              if (randomNum <= inversionProb) {
+                newRandomNode = tour(random.nextInt(tour.size))
+                while (randomNode != newRandomNode) {
+                  newRandomNode = tour(random.nextInt(tour.size))
+                }
+              }
+              else {
+
+                val otherTour = population(random.nextInt(popSize))
+
+                if (randomNode != otherTour.head) {
+                  newRandomNode = otherTour(otherTour.indexOf(randomNode) - 1)
+                }
+                else {
+                  newRandomNode = otherTour(otherTour.indexOf(randomNode) + 1)
+                }
+
+              }
+
+              val indexOfRandomNode = tour.indexOf(randomNode)
+              val indexOfNewRandomNode = tour.indexOf(newRandomNode)
+
+              // swapping is completed if the two selected
+              // nodes are already next to each other
+              if (indexOfRandomNode + 1 == indexOfNewRandomNode
+                || indexOfRandomNode - 1 == indexOfNewRandomNode) {
+                done = true
+              }
+              else {
+                currentBestTour = currentBestTour.filterNot(vertex => vertex == newRandomNode)
+                currentBestTour = currentBestTour.take(indexOfNewRandomNode) ++
+                  Seq(newRandomNode) ++ currentBestTour.drop(indexOfNewRandomNode)
+              }
+
+              // determines if the swapped tour is shorter that the original
+              if (pathLength(otherTour).get < pathLength(currentBestTour).get) {
+                currentBestTour = otherTour
+              }
+
+            }
+
+            // bookends the tour with the starting and ending vertex
+            currentBestTour :+= startingVertex
+            currentBestTour +:= startingVertex
+            bestPopulation :+= currentBestTour
+
+          }
+        }
+
+        optimalTourVertices = bestPopulation.head
+        for (tour <- bestPopulation) {
+          if (pathLength(tour).isDefined && pathLength(optimalTourVertices).isDefined) {
+            if (pathLength(tour).get < pathLength(optimalTourVertices).get) {
+              optimalTourVertices = tour
+            }
+          }
+        }
+
+        for (pair <- optimalTourVertices.sliding(2)) {
+          optimalTour = optimalTour ++ getEdge(pair.head, pair.last)
+        }
+
+         optimalTour
+
+      }
+
+
+      /** Computes the optimal solution to the TSP
+        * using the genetic inver-over algorithm.
+        *
+        * About the inver-over algorithm: http://dl.acm.org/citation.cfm?id=668606.
+        */
+      def getOptimalTour:Seq[Edge[T]] = {
+
+        var popSize:Int = 100
+        var inversionProb = 0.02.toFloat
+        var maxIters:Int = 10
+
+        getOptimalTour(popSize, inversionProb, maxIters)
 
       }
 

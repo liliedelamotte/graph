@@ -7,15 +7,15 @@
 		revision="0.1"
 		conf="test"
 		confs="compile, runtime, test, provided, optional, compile-internal, runtime-internal, test-internal, plugin, pom, scala-tool"
-		date="20190129192514"/>
+		date="20190318163529"/>
 	<dependencies>
 		<module organisation="org.scalatest" name="scalatest_2.12">
-			<revision name="3.0.1" status="release" pubdate="20161109215252" resolver="public" artresolver="public" homepage="http://www.scalatest.org" downloaded="true" searched="true" default="false" conf="default, compile, runtime, default(compile), master" position="3">
+			<revision name="3.0.1" status="release" pubdate="20161109215252" resolver="sbt-chain" artresolver="sbt-chain" homepage="http://www.scalatest.org" downloaded="false" searched="false" default="false" conf="default, compile, runtime, default(compile), master" position="4">
 				<license name="the Apache License, ASL Version 2.0" url="http://www.apache.org/licenses/LICENSE-2.0"/>
-				<metadata-artifact status="successful" details="" size="5963" time="66" location="/Users/liliedelamotte/.ivy2/cache/org.scalatest/scalatest_2.12/ivy-3.0.1.xml" searched="true" original-local-location="/Users/liliedelamotte/.ivy2/cache/org.scalatest/scalatest_2.12/ivy-3.0.1.xml.original" origin-is-local="false" origin-location="https://repo1.maven.org/maven2/org/scalatest/scalatest_2.12/3.0.1/scalatest_2.12-3.0.1.pom"/>
+				<metadata-artifact status="no" details="" size="5287" time="0" location="/Users/liliedelamotte/.ivy2/cache/org.scalatest/scalatest_2.12/ivy-3.0.1.xml" searched="false" origin-is-local="false" origin-location="https://repo1.maven.org/maven2/org/scalatest/scalatest_2.12/3.0.1/scalatest_2.12-3.0.1.pom"/>
 				<caller organisation="default" name="graph_2.12" conf="test, compile, runtime" rev="3.0.1" rev-constraint-default="3.0.1" rev-constraint-dynamic="3.0.1" callerrev="0.1"/>
 				<artifacts>
-					<artifact name="scalatest_2.12" type="bundle" ext="jar" status="successful" details="" size="6992597" time="7750" location="/Users/liliedelamotte/.ivy2/cache/org.scalatest/scalatest_2.12/bundles/scalatest_2.12-3.0.1.jar">
+					<artifact name="scalatest_2.12" type="bundle" ext="jar" status="no" details="" size="6992597" time="0" location="/Users/liliedelamotte/.ivy2/cache/org.scalatest/scalatest_2.12/bundles/scalatest_2.12-3.0.1.jar">
 						<origin-location is-local="false" location="https://repo1.maven.org/maven2/org/scalatest/scalatest_2.12/3.0.1/scalatest_2.12-3.0.1.jar"/>
 					</artifact>
 				</artifacts>
@@ -27,21 +27,29 @@
 				<metadata-artifact status="no" details="" size="2785" time="0" location="/Users/liliedelamotte/.ivy2/cache/org.scala-lang.modules/scala-parser-combinators_2.12/ivy-1.0.4.xml" searched="false" origin-is-local="false" origin-location="https://repo1.maven.org/maven2/org/scala-lang/modules/scala-parser-combinators_2.12/1.0.4/scala-parser-combinators_2.12-1.0.4.pom"/>
 				<caller organisation="org.scalatest" name="scalatest_2.12" conf="default, compile, runtime, master" rev="1.0.4" rev-constraint-default="1.0.4" rev-constraint-dynamic="1.0.4" callerrev="3.0.1"/>
 				<artifacts>
-					<artifact name="scala-parser-combinators_2.12" type="bundle" ext="jar" status="successful" details="" size="204313" time="209" location="/Users/liliedelamotte/.ivy2/cache/org.scala-lang.modules/scala-parser-combinators_2.12/bundles/scala-parser-combinators_2.12-1.0.4.jar">
+					<artifact name="scala-parser-combinators_2.12" type="bundle" ext="jar" status="no" details="" size="204313" time="0" location="/Users/liliedelamotte/.ivy2/cache/org.scala-lang.modules/scala-parser-combinators_2.12/bundles/scala-parser-combinators_2.12-1.0.4.jar">
 						<origin-location is-local="false" location="https://repo1.maven.org/maven2/org/scala-lang/modules/scala-parser-combinators_2.12/1.0.4/scala-parser-combinators_2.12-1.0.4.jar"/>
 					</artifact>
 				</artifacts>
 			</revision>
 		</module>
 		<module organisation="org.scala-lang.modules" name="scala-xml_2.12">
-			<revision name="1.0.5" status="release" pubdate="20161028161007" resolver="public" artresolver="public" homepage="http://www.scala-lang.org/" downloaded="true" searched="true" default="false" conf="compile, runtime(*), master(compile), runtime, compile(*), master" position="4">
+			<revision name="1.1.1" status="release" pubdate="20180926103248" resolver="public" artresolver="public" homepage="http://www.scala-lang.org/" downloaded="true" searched="true" default="false" conf="default, compile, runtime, default(compile), master, runtime(*), master(compile), compile(*)" position="3">
 				<license name="BSD 3-clause" url="http://opensource.org/licenses/BSD-3-Clause"/>
-				<metadata-artifact status="successful" details="" size="2518" time="53" location="/Users/liliedelamotte/.ivy2/cache/org.scala-lang.modules/scala-xml_2.12/ivy-1.0.5.xml" searched="true" original-local-location="/Users/liliedelamotte/.ivy2/cache/org.scala-lang.modules/scala-xml_2.12/ivy-1.0.5.xml.original" origin-is-local="false" origin-location="https://repo1.maven.org/maven2/org/scala-lang/modules/scala-xml_2.12/1.0.5/scala-xml_2.12-1.0.5.pom"/>
+				<metadata-artifact status="successful" details="" size="2753" time="112" location="/Users/liliedelamotte/.ivy2/cache/org.scala-lang.modules/scala-xml_2.12/ivy-1.1.1.xml" searched="true" original-local-location="/Users/liliedelamotte/.ivy2/cache/org.scala-lang.modules/scala-xml_2.12/ivy-1.1.1.xml.original" origin-is-local="false" origin-location="https://repo1.maven.org/maven2/org/scala-lang/modules/scala-xml_2.12/1.1.1/scala-xml_2.12-1.1.1.pom"/>
 				<caller organisation="org.scalatest" name="scalatest_2.12" conf="default, compile, runtime, master" rev="1.0.5" rev-constraint-default="1.0.5" rev-constraint-dynamic="1.0.5" callerrev="3.0.1"/>
+				<caller organisation="default" name="graph_2.12" conf="test, compile, runtime" rev="1.1.1" rev-constraint-default="1.1.1" rev-constraint-dynamic="1.1.1" callerrev="0.1"/>
 				<artifacts>
-					<artifact name="scala-xml_2.12" type="bundle" ext="jar" status="successful" details="" size="548430" time="555" location="/Users/liliedelamotte/.ivy2/cache/org.scala-lang.modules/scala-xml_2.12/bundles/scala-xml_2.12-1.0.5.jar">
-						<origin-location is-local="false" location="https://repo1.maven.org/maven2/org/scala-lang/modules/scala-xml_2.12/1.0.5/scala-xml_2.12-1.0.5.jar"/>
+					<artifact name="scala-xml_2.12" type="bundle" ext="jar" status="successful" details="" size="553347" time="286" location="/Users/liliedelamotte/.ivy2/cache/org.scala-lang.modules/scala-xml_2.12/bundles/scala-xml_2.12-1.1.1.jar">
+						<origin-location is-local="false" location="https://repo1.maven.org/maven2/org/scala-lang/modules/scala-xml_2.12/1.1.1/scala-xml_2.12-1.1.1.jar"/>
 					</artifact>
+				</artifacts>
+			</revision>
+			<revision name="1.0.5" evicted="latest-revision" evicted-reason="" downloaded="false" searched="false" conf="compile, runtime(*), master(compile), runtime, compile(*), master, default, default(compile)" position="-1">
+				<evicted-by rev="1.1.1"/>
+				<caller organisation="org.scalatest" name="scalatest_2.12" conf="default, compile, runtime, master" rev="1.0.5" rev-constraint-default="1.0.5" rev-constraint-dynamic="1.0.5" callerrev="3.0.1"/>
+				<caller organisation="default" name="graph_2.12" conf="test, compile, runtime" rev="1.1.1" rev-constraint-default="1.1.1" rev-constraint-dynamic="1.1.1" callerrev="0.1"/>
+				<artifacts>
 				</artifacts>
 			</revision>
 		</module>
@@ -59,13 +67,13 @@
 			</revision>
 		</module>
 		<module organisation="org.scalactic" name="scalactic_2.12">
-			<revision name="3.0.1" status="release" pubdate="20161109215016" resolver="public" artresolver="public" homepage="http://www.scalatest.org" downloaded="true" searched="true" default="false" conf="default, compile, runtime(*), master(compile), runtime, default(compile), compile(*), master" position="1">
+			<revision name="3.0.1" status="release" pubdate="20161109215016" resolver="sbt-chain" artresolver="sbt-chain" homepage="http://www.scalatest.org" downloaded="false" searched="false" default="false" conf="default, compile, runtime(*), master(compile), runtime, default(compile), compile(*), master" position="1">
 				<license name="the Apache License, ASL Version 2.0" url="http://www.apache.org/licenses/LICENSE-2.0"/>
-				<metadata-artifact status="successful" details="" size="2236" time="68" location="/Users/liliedelamotte/.ivy2/cache/org.scalactic/scalactic_2.12/ivy-3.0.1.xml" searched="true" original-local-location="/Users/liliedelamotte/.ivy2/cache/org.scalactic/scalactic_2.12/ivy-3.0.1.xml.original" origin-is-local="false" origin-location="https://repo1.maven.org/maven2/org/scalactic/scalactic_2.12/3.0.1/scalactic_2.12-3.0.1.pom"/>
+				<metadata-artifact status="no" details="" size="2967" time="0" location="/Users/liliedelamotte/.ivy2/cache/org.scalactic/scalactic_2.12/ivy-3.0.1.xml" searched="false" origin-is-local="false" origin-location="https://repo1.maven.org/maven2/org/scalactic/scalactic_2.12/3.0.1/scalactic_2.12-3.0.1.pom"/>
 				<caller organisation="org.scalatest" name="scalatest_2.12" conf="default, compile, runtime, master" rev="3.0.1" rev-constraint-default="3.0.1" rev-constraint-dynamic="3.0.1" callerrev="3.0.1"/>
 				<caller organisation="default" name="graph_2.12" conf="test, compile, runtime" rev="3.0.1" rev-constraint-default="3.0.1" rev-constraint-dynamic="3.0.1" callerrev="0.1"/>
 				<artifacts>
-					<artifact name="scalactic_2.12" type="bundle" ext="jar" status="successful" details="" size="705564" time="801" location="/Users/liliedelamotte/.ivy2/cache/org.scalactic/scalactic_2.12/bundles/scalactic_2.12-3.0.1.jar">
+					<artifact name="scalactic_2.12" type="bundle" ext="jar" status="no" details="" size="705564" time="0" location="/Users/liliedelamotte/.ivy2/cache/org.scalactic/scalactic_2.12/bundles/scalactic_2.12-3.0.1.jar">
 						<origin-location is-local="false" location="https://repo1.maven.org/maven2/org/scalactic/scalactic_2.12/3.0.1/scalactic_2.12-3.0.1.jar"/>
 					</artifact>
 				</artifacts>
@@ -77,10 +85,10 @@
 				<metadata-artifact status="no" details="" size="2656" time="0" location="/Users/liliedelamotte/.ivy2/cache/org.scala-lang/scala-library/ivy-2.12.8.xml" searched="false" origin-is-local="false" origin-location="https://repo1.maven.org/maven2/org/scala-lang/scala-library/2.12.8/scala-library-2.12.8.pom"/>
 				<caller organisation="org.scala-lang" name="scala-reflect" conf="compile, runtime" rev="2.12.8" rev-constraint-default="2.12.8" rev-constraint-dynamic="2.12.8" callerrev="2.12.8"/>
 				<caller organisation="org.scala-lang.modules" name="scala-parser-combinators_2.12" conf="compile, runtime" rev="2.12.8" rev-constraint-default="2.12.8" rev-constraint-dynamic="2.12.8" callerrev="1.0.4"/>
-				<caller organisation="org.scala-lang.modules" name="scala-xml_2.12" conf="compile, runtime" rev="2.12.8" rev-constraint-default="2.12.8" rev-constraint-dynamic="2.12.8" callerrev="1.0.5"/>
 				<caller organisation="org.scalatest" name="scalatest_2.12" conf="default, compile, runtime, master" rev="2.12.8" rev-constraint-default="2.12.8" rev-constraint-dynamic="2.12.8" callerrev="3.0.1"/>
 				<caller organisation="default" name="graph_2.12" conf="test, compile, runtime" rev="2.12.8" rev-constraint-default="2.12.8" rev-constraint-dynamic="2.12.8" callerrev="0.1"/>
 				<caller organisation="org.scalactic" name="scalactic_2.12" conf="default, compile, runtime, master" rev="2.12.8" rev-constraint-default="2.12.8" rev-constraint-dynamic="2.12.8" callerrev="3.0.1"/>
+				<caller organisation="org.scala-lang.modules" name="scala-xml_2.12" conf="default, compile, runtime, master" rev="2.12.8" rev-constraint-default="2.12.8" rev-constraint-dynamic="2.12.8" callerrev="1.1.1"/>
 				<artifacts>
 					<artifact name="scala-library" type="jar" ext="jar" status="no" details="" size="5272591" time="0" location="/Users/liliedelamotte/.ivy2/cache/org.scala-lang/scala-library/jars/scala-library-2.12.8.jar">
 						<origin-location is-local="false" location="https://repo1.maven.org/maven2/org/scala-lang/scala-library/2.12.8/scala-library-2.12.8.jar"/>
