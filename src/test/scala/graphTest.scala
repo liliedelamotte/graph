@@ -19,6 +19,41 @@ class graphTest extends FunSuite {
         graph = graph.addEdge(2, 4, 10)
         graph = graph.addEdge(3, 4, 1)
 
+//        var shortestPathLength:Long = 100000
+//
+//        val EIL101 = Graph.fromTSPFile("eil101.xml")
+//
+//        for (i <- 0 to 10) {
+//
+//          val tour = EIL101.getOptimalTour
+//
+//          if (EIL101.pathLength(tour).isDefined) {
+//            val currentPathLength = EIL101.pathLength(tour).get
+//            if (currentPathLength < shortestPathLength) {
+//              shortestPathLength = currentPathLength
+//            }
+//          }
+//
+//        }
+//
+//        println("My path length: " + EIL101.pathLength(EIL101.getOptimalTour) + ".")
+//
+//
+//        var KROA100 = Graph.fromTSPFile("kroA100.xml")
+//
+//        for (i <- 0 to 10) {
+//          val tour = KROA100.getOptimalTour
+//
+//          if (KROA100.pathLength(tour).isDefined) {
+//            val currentPathLength = EIL101.pathLength(tour).get
+//            if (currentPathLength < shortestPathLength) {
+//              shortestPathLength = currentPathLength
+//            }
+//          }
+//        }
+//
+//        println("Path length: " + KROA100.pathLength(KROA100.getOptimalTour) + ".\n")
+
   }
 
   test("testDirectedGetVertices") {

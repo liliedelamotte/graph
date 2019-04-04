@@ -1,6 +1,6 @@
 // ldelamotte17@georgefox.edu
-// Assignment 5
-// 2019-03-16
+// Assignment 6
+// 2019-04-04
 
 
 import java.io.{File, IOException}
@@ -144,7 +144,7 @@ object graph
       *
       * About the inver-over algorithm: http://dl.acm.org/citation.cfm?id=668606.
       */
-    def getOptimalTour:Seq[Edge[T]]
+     def getOptimalTour:Seq[Edge[T]]
 
 
     /** Returns a string literal of the graph. */
@@ -880,7 +880,7 @@ object graph
               }
 
               // determines if the swapped tour is shorter that the original
-              if (pathLength(otherTour).get < pathLength(tour).get) {
+              if (pathLength(otherTour).get < pathLength(currentBestTour).get) {
                 currentBestTour = otherTour
               }
 
@@ -889,7 +889,6 @@ object graph
             // bookends the tour with the starting and ending vertex
             currentBestTour :+= startingVertex
             currentBestTour +:= startingVertex
-
             bestPopulation :+= currentBestTour
 
           }
@@ -922,7 +921,7 @@ object graph
 
         var popSize:Int = 100
         var inversionProb = 0.02.toFloat
-        var maxIters:Int = 1000
+        var maxIters:Int = 10
 
         getOptimalTour(popSize, inversionProb, maxIters)
 
@@ -1596,7 +1595,7 @@ object graph
         *
         * About the inver-over algorithm: http://dl.acm.org/citation.cfm?id=668606.
         */
-      def getOptimalTour(popSize:Int, inversionProb:Float, maxIters:Int):Seq[Edge[T]] = {
+       def getOptimalTour(popSize:Int, inversionProb:Float, maxIters:Int):Seq[Edge[T]] = {
         var optimalTourVertices = Seq[T]()
         var optimalTour = Seq[Edge[T]]()
         var population = Seq[Seq[T]]()
@@ -1659,7 +1658,7 @@ object graph
               }
 
               // determines if the swapped tour is shorter that the original
-              if (pathLength(otherTour).get < pathLength(tour).get) {
+              if (pathLength(otherTour).get < pathLength(currentBestTour).get) {
                 currentBestTour = otherTour
               }
 
@@ -1668,7 +1667,6 @@ object graph
             // bookends the tour with the starting and ending vertex
             currentBestTour :+= startingVertex
             currentBestTour +:= startingVertex
-
             bestPopulation :+= currentBestTour
 
           }
@@ -1687,7 +1685,7 @@ object graph
           optimalTour = optimalTour ++ getEdge(pair.head, pair.last)
         }
 
-        optimalTour
+         optimalTour
 
       }
 
@@ -1701,7 +1699,7 @@ object graph
 
         var popSize:Int = 100
         var inversionProb = 0.02.toFloat
-        var maxIters:Int = 1000
+        var maxIters:Int = 10
 
         getOptimalTour(popSize, inversionProb, maxIters)
 
@@ -1725,44 +1723,5 @@ object graph
 
       }
     }
-  }
-
-  def main(args: Array[String]): Unit = {
-
-//    var shortestPathLength:Long = 100000
-//
-//    val EIL101 = Graph.fromTSPFile("eil101.xml")
-//
-//    for (i <- 0 to 10) {
-//
-//      val tour = EIL101.getOptimalTour
-//
-//      if (EIL101.pathLength(tour).isDefined) {
-//        val currentPathLength = EIL101.pathLength(tour).get
-//        if (currentPathLength < shortestPathLength) {
-//          shortestPathLength = currentPathLength
-//        }
-//      }
-//
-//    }
-//
-//    println("My path length: " + EIL101.pathLength(EIL101.getOptimalTour) + ".")
-//
-//
-//    var KROA100 = Graph.fromTSPFile("kroA100.xml")
-//
-//    for (i <- 0 to 10) {
-//      val tour = KROA100.getOptimalTour
-//
-//      if (KROA100.pathLength(tour).isDefined) {
-//        val currentPathLength = EIL101.pathLength(tour).get
-//        if (currentPathLength < shortestPathLength) {
-//          shortestPathLength = currentPathLength
-//        }
-//      }
-//    }
-//
-//    println("Path length: " + KROA100.pathLength(KROA100.getOptimalTour) + ".\n")
-
   }
 }
