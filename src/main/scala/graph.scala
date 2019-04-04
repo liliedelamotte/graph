@@ -146,6 +146,9 @@ object graph
       */
      def getOptimalTour:Seq[Edge[T]]
 
+    /** Computes the optimal solution to the TSP using the Branch & Bound method. */
+    def branchBoundTSP:Seq[Edge[T]]
+
 
     /** Returns a string literal of the graph. */
     override def toString:String
@@ -928,6 +931,13 @@ object graph
       }
 
 
+      /** Computes the optimal solution to the TSP using the Branch & Bound method. */
+      def branchBoundTSP:Seq[Edge[T]] = {
+        val optimalTour = Seq[Edge[T]]()
+        optimalTour
+      }
+
+
       /** Returns a string literal of the graph. */
       override def toString:String = {
 
@@ -1703,6 +1713,13 @@ object graph
 
         getOptimalTour(popSize, inversionProb, maxIters)
 
+      }
+
+
+      /** Computes the optimal solution to the TSP using the Branch & Bound method. */
+      def branchBoundTSP:Seq[Edge[T]] = {
+        val optimalTour = Seq[Edge[T]]()
+        optimalTour
       }
 
 
