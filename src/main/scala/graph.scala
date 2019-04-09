@@ -935,8 +935,64 @@ object graph
 
       /** Computes the optimal solution to the TSP using the Branch & Bound method. */
       def branchBoundTSP:Seq[Edge[T]] = {
-        val optimalTour = Seq[Edge[T]]()
+        var optimalTour = Seq[Edge[T]]()
+        var best = Seq[T]()
+        var startingVertex = getVertices.head
+        var stack = Seq[Seq[T]]()
+        var minCost = scala.Long.MaxValue
+
+        stack +:= Seq(startingVertex)
+
+        while (stack.nonEmpty) {
+
+          // "pops" the stack
+          var currentTour = stack.head
+          stack = stack.filter(_!= currentTour)
+
+          println(currentTour)
+          println(currentTour.size)
+
+          // todo do I need to add on the initial vertex
+          // determines if the current tour is shorter than the best
+          if(pathLength(currentTour).isDefined) {
+            if (pathLength(currentTour).get < minCost) {
+              // if it has all the vertices, it is the shortest path
+              if (currentTour.size == getVertices.size) {
+                best = currentTour
+                minCost = pathLength(currentTour).get
+              }
+              else {
+                for (vertex <- getVertices) {
+                  if (!currentTour.contains(vertex)) {
+                    stack +:= (currentTour :+ vertex)
+                  }
+                }
+              }
+            }
+          }
+          // makes a seperate loop for the first case where there is only one vertex
+          else if (currentTour.size == 1) {
+            if (currentTour.size == getVertices.size) {
+              best = currentTour
+              minCost = pathLength(currentTour).get
+            }
+            else {
+              for (vertex <- getVertices) {
+                if (!currentTour.contains(vertex)) {
+                  stack +:= (currentTour :+ vertex)
+                }
+              }
+            }
+          }
+        }
+
+        best :+= startingVertex
+        for (pair <- best.sliding(2)) {
+          optimalTour = optimalTour ++ getEdge(pair.head, pair.last)
+        }
+
         optimalTour
+
       }
 
 
@@ -1730,17 +1786,23 @@ object graph
 
         while (stack.nonEmpty) {
 
+          // "pops" the stack
           var currentTour = stack.head
           stack = stack.filter(_!= currentTour)
 
+          println(currentTour)
+          println(currentTour.size)
+
+          // todo do I need to add on the initial vertex
+          // determines if the current tour is shorter than the best
           if(pathLength(currentTour).isDefined) {
             if (pathLength(currentTour).get < minCost) {
+              // if it has all the vertices, it is the shortest path
               if (currentTour.size == getVertices.size) {
                 best = currentTour
                 minCost = pathLength(currentTour).get
               }
               else {
-                var missingVertices = Seq[T]()
                 for (vertex <- getVertices) {
                   if (!currentTour.contains(vertex)) {
                     stack +:= (currentTour :+ vertex)
@@ -1749,8 +1811,23 @@ object graph
               }
             }
           }
+          // makes a seperate loop for the first case where there is only one vertex
+          else if (currentTour.size == 1) {
+            if (currentTour.size == getVertices.size) {
+              best = currentTour
+              minCost = pathLength(currentTour).get
+            }
+            else {
+              for (vertex <- getVertices) {
+                if (!currentTour.contains(vertex)) {
+                  stack +:= (currentTour :+ vertex)
+                }
+              }
+            }
+          }
         }
 
+        best :+= startingVertex
         for (pair <- best.sliding(2)) {
           optimalTour = optimalTour ++ getEdge(pair.head, pair.last)
         }
@@ -1777,23 +1854,5 @@ object graph
 
       }
     }
-  }
-
-  def main(args: Array[String]): Unit = {
-    var graph = Graph[Int](false)
-
-    graph = graph.addVertex(1)
-    graph = graph.addVertex(2)
-    graph = graph.addVertex(3)
-    graph = graph.addVertex(4)
-
-    graph = graph.addEdge(1, 2, 1)
-    graph = graph.addEdge(1, 3, 1)
-    graph = graph.addEdge(1, 4, 1)
-    graph = graph.addEdge(2, 3, 1)
-    graph = graph.addEdge(2, 4, 1)
-    graph = graph.addEdge(3, 4, 1)
-
-    print(graph.branchBoundTSP)
   }
 }
