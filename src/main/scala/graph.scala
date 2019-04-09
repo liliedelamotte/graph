@@ -949,17 +949,15 @@ object graph
           var currentTour = stack.head
           stack = stack.filter(_!= currentTour)
 
-          println(currentTour)
-          println(currentTour.size)
-
-          // todo do I need to add on the initial vertex
           // determines if the current tour is shorter than the best
-          if(pathLength(currentTour).isDefined) {
-            if (pathLength(currentTour).get < minCost) {
+          val completeTour = currentTour :+ startingVertex
+          println(completeTour)
+          if(pathLength(completeTour).isDefined) {
+            if (pathLength(completeTour).get < minCost) {
               // if it has all the vertices, it is the shortest path
-              if (currentTour.size == getVertices.size) {
-                best = currentTour
-                minCost = pathLength(currentTour).get
+              if (completeTour.size == getVertices.size + 1) {
+                best = completeTour
+                minCost = pathLength(completeTour).get
               }
               else {
                 for (vertex <- getVertices) {
@@ -971,16 +969,10 @@ object graph
             }
           }
           // makes a seperate loop for the first case where there is only one vertex
-          else if (currentTour.size == 1) {
-            if (currentTour.size == getVertices.size) {
-              best = currentTour
-              minCost = pathLength(currentTour).get
-            }
-            else {
-              for (vertex <- getVertices) {
-                if (!currentTour.contains(vertex)) {
-                  stack +:= (currentTour :+ vertex)
-                }
+          else if (completeTour.size == 2) {
+            for (vertex <- getVertices) {
+              if (!currentTour.contains(vertex)) {
+                stack +:= (currentTour :+ vertex)
               }
             }
           }
@@ -1790,17 +1782,15 @@ object graph
           var currentTour = stack.head
           stack = stack.filter(_!= currentTour)
 
-          println(currentTour)
-          println(currentTour.size)
-
-          // todo do I need to add on the initial vertex
           // determines if the current tour is shorter than the best
-          if(pathLength(currentTour).isDefined) {
-            if (pathLength(currentTour).get < minCost) {
+          val completeTour = currentTour :+ startingVertex
+          println(completeTour)
+          if(pathLength(completeTour).isDefined) {
+            if (pathLength(completeTour).get < minCost) {
               // if it has all the vertices, it is the shortest path
-              if (currentTour.size == getVertices.size) {
-                best = currentTour
-                minCost = pathLength(currentTour).get
+              if (completeTour.size == getVertices.size + 1) {
+                best = completeTour
+                minCost = pathLength(completeTour).get
               }
               else {
                 for (vertex <- getVertices) {
@@ -1812,16 +1802,10 @@ object graph
             }
           }
           // makes a seperate loop for the first case where there is only one vertex
-          else if (currentTour.size == 1) {
-            if (currentTour.size == getVertices.size) {
-              best = currentTour
-              minCost = pathLength(currentTour).get
-            }
-            else {
-              for (vertex <- getVertices) {
-                if (!currentTour.contains(vertex)) {
-                  stack +:= (currentTour :+ vertex)
-                }
+          else if (completeTour.size == 2) {
+            for (vertex <- getVertices) {
+              if (!currentTour.contains(vertex)) {
+                stack +:= (currentTour :+ vertex)
               }
             }
           }
@@ -1854,5 +1838,44 @@ object graph
 
       }
     }
+  }
+
+  def main(args: Array[String]): Unit = {
+//
+//    var burma14 = Graph.fromTSPFile("burma14.xml")
+//
+//    var currentTime = System.currentTimeMillis()
+//    println("burma14, getLocalTSP path length: " + burma14.getLocalTSP())
+//    println("total time: " + (System.currentTimeMillis() - currentTime) + "\n")
+//
+//    currentTime = System.currentTimeMillis()
+//    println("burma14, dynamicTSP path length: " + burma14.dynamicTSP())
+//    println("total time: " + (System.currentTimeMillis() - currentTime) + "\n")
+//
+//    currentTime = System.currentTimeMillis()
+//    println("burma14, getOptimalTour: " + burma14.getOptimalTour)
+//    println("total time: " + (System.currentTimeMillis() - currentTime) + "\n")
+//
+//    currentTime = System.currentTimeMillis()
+//    println("burma13, branchBoundTSP: " + burma14.branchBoundTSP)
+//    println("total time: " + (System.currentTimeMillis() - currentTime) + "\n")
+
+
+    var graph = Graph[Int](false)
+
+    graph = graph.addVertex(1)
+    graph = graph.addVertex(2)
+    graph = graph.addVertex(3)
+    graph = graph.addVertex(4)
+
+    graph = graph.addEdge(1, 2, 1)
+    graph = graph.addEdge(1, 3, 10)
+    graph = graph.addEdge(1, 4, 1)
+    graph = graph.addEdge(2, 3, 1)
+    graph = graph.addEdge(2, 4, 10)
+    graph = graph.addEdge(3, 4, 1)
+
+    println(graph.branchBoundTSP)
+
   }
 }
