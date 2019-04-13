@@ -151,10 +151,9 @@ object graph
       */
      def getOptimalTour:Seq[Edge[T]]
 
+
     /** Computes the optimal solution to the TSP using the Branch & Bound method. */
     def branchBoundTSP:Seq[Edge[T]]
-
-    def edgesToVertices(edges:Seq[Edge[T]]):Int
 
 
     /** Returns a string literal of the graph. */
@@ -991,14 +990,6 @@ object graph
 
       }
 
-      def edgesToVertices(edges:Seq[Edge[T]]):Int = {
-        var total = 0
-        for (edge <- edges) {
-          total += getEdgeWeight(edge.source, edge.destination)
-        }
-        total
-      }
-
 
       /** Returns a string literal of the graph. */
       override def toString:String = {
@@ -1832,14 +1823,6 @@ object graph
 
       }
 
-      def edgesToVertices(edges:Seq[Edge[T]]):Int = {
-        var total = 0
-        for (edge <- edges) {
-          total += getEdgeWeight(edge.source, edge.destination)
-        }
-        total
-      }
-
 
       /** Returns a string literal of the graph. */
       override def toString:String = {
@@ -1858,111 +1841,5 @@ object graph
 
       }
     }
-  }
-
-  def main(args: Array[String]): Unit = {
-
-    val burma14 = Graph.fromTSPFile("burma14.xml")
-    val gr24 = Graph.fromTSPFile("gr24.xml")
-    val eil76 = Graph.fromTSPFile("eil76.xml")
-    val bays29 = Graph.fromTSPFile("bays29.xml")
-    val gr21 = Graph.fromTSPFile("gr21.xml")
-    val swiss42 = Graph.fromTSPFile("swiss42.xml")
-    val ulysses16 = Graph.fromTSPFile("ulysses16.xml")
-    val ulysses22 = Graph.fromTSPFile("ulysses22.xml")
-
-
-    /** burma14 */
-    var currentTime = System.currentTimeMillis()
-    println("burma14, branchBoundTSP: " + burma14.edgesToVertices(burma14.branchBoundTSP))
-    println("total time: " + (System.currentTimeMillis() - currentTime) + "\n")
-
-    println("------------------------------------------------------------------;")
-
-
-
-//    /** gr24 */
-//    currentTime = System.currentTimeMillis()
-//    println("gr24, dynamicTSP path length: " + gr24.edgesToVertices(gr24.dynamicTSP()))
-//    println("total time: " + (System.currentTimeMillis() - currentTime) + "\n")
-//
-//    currentTime = System.currentTimeMillis()
-//    println("gr24, branchBoundTSP: " + gr24.edgesToVertices(gr24.branchBoundTSP))
-//    println("total time: " + (System.currentTimeMillis() - currentTime) + "\n")
-//
-//    println("------------------------------------------------------------------;")
-//
-//
-//
-//    /** eil76 */
-//    currentTime = System.currentTimeMillis()
-//    println("eil76, dynamicTSP path length: " + eil76.edgesToVertices(eil76.dynamicTSP()))
-//    println("total time: " + (System.currentTimeMillis() - currentTime) + "\n")
-//
-//    currentTime = System.currentTimeMillis()
-//    println("eil76, branchBoundTSP: " + eil76.edgesToVertices(eil76.branchBoundTSP))
-//    println("total time: " + (System.currentTimeMillis() - currentTime) + "\n")
-//
-//    println("------------------------------------------------------------------;")
-//
-//
-//
-//    /** bays29 */
-//    currentTime = System.currentTimeMillis()
-//    println("bays29, dynamicTSP path length: " + bays29.edgesToVertices(bays29.dynamicTSP()))
-//    println("total time: " + (System.currentTimeMillis() - currentTime) + "\n")
-//
-//    currentTime = System.currentTimeMillis()
-//    println("bays29, branchBoundTSP: " + bays29.edgesToVertices(bays29.branchBoundTSP))
-//    println("total time: " + (System.currentTimeMillis() - currentTime) + "\n")
-//
-//    println("------------------------------------------------------------------;")
-//
-//
-//
-//    /** gr21 */
-//    currentTime = System.currentTimeMillis()
-//    println("gr21, dynamicTSP path length: " + gr21.edgesToVertices(bays29.dynamicTSP()))
-//    println("total time: " + (System.currentTimeMillis() - currentTime) + "\n")
-//
-//    currentTime = System.currentTimeMillis()
-//    println("gr21, branchBoundTSP: " + gr21.edgesToVertices(bays29.branchBoundTSP))
-//    println("total time: " + (System.currentTimeMillis() - currentTime) + "\n")
-//
-//    println("------------------------------------------------------------------;")
-//
-//
-//
-//    /** swiss42 */
-//    currentTime = System.currentTimeMillis()
-//    println("swiss42, dynamicTSP path length: " + swiss42.edgesToVertices(swiss42.dynamicTSP()))
-//    println("total time: " + (System.currentTimeMillis() - currentTime) + "\n")
-//
-//    currentTime = System.currentTimeMillis()
-//    println("swiss42, branchBoundTSP: " + swiss42.edgesToVertices(swiss42.branchBoundTSP))
-//    println("total time: " + (System.currentTimeMillis() - currentTime) + "\n")
-//
-//    println("------------------------------------------------------------------;")
-//
-//
-//
-//    /** ulysses16 */
-//    currentTime = System.currentTimeMillis()
-//    println("ulysses16, branchBoundTSP: " + ulysses16.edgesToVertices(ulysses16.branchBoundTSP))
-//    println("total time: " + (System.currentTimeMillis() - currentTime) + "\n")
-//
-//    println("------------------------------------------------------------------;")
-//
-//
-//
-//    /** ulysses22 */
-//    currentTime = System.currentTimeMillis()
-//    println("ulysses22, dynamicTSP path length: " + ulysses22.edgesToVertices(ulysses16.dynamicTSP()))
-//    println("total time: " + (System.currentTimeMillis() - currentTime) + "\n")
-//
-//    currentTime = System.currentTimeMillis()
-//    println("ulysses22, branchBoundTSP: " + ulysses22.edgesToVertices(ulysses16.branchBoundTSP))
-//    println("total time: " + (System.currentTimeMillis() - currentTime) + "\n")
-
   }
 }
