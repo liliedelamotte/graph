@@ -5,9 +5,14 @@
 
 import java.io.{File, IOException}
 import java.util.Scanner
+
+import graph.Edge
+
 import scala.xml.XML.loadFile
 import scala.xml.Node
 import scala.util.Random
+import scala.collection.immutable.Stack
+
 
 /** Factory for graph instances. */
 object graph
@@ -145,6 +150,10 @@ object graph
       * About the inver-over algorithm: http://dl.acm.org/citation.cfm?id=668606.
       */
      def getOptimalTour:Seq[Edge[T]]
+
+
+    /** Computes the optimal solution to the TSP using the Branch & Bound method. */
+    def branchBoundTSP:Seq[Edge[T]]
 
 
     /** Returns a string literal of the graph. */
@@ -928,6 +937,60 @@ object graph
       }
 
 
+      /** Computes the optimal solution to the TSP using the Branch & Bound method. */
+      def branchBoundTSP:Seq[Edge[T]] = {
+        var optimalTour = Seq[Edge[T]]()
+        var best = Seq[T]()
+        var startingVertex = getVertices.head
+        var stack = Seq[Seq[T]]()
+        var minCost = scala.Long.MaxValue
+
+        stack +:= Seq(startingVertex)
+
+        while (stack.nonEmpty) {
+
+          // "pops" the stack
+          var currentTour = stack.head
+          stack = stack.filter(_!= currentTour)
+
+          // determines if the current tour is shorter than the best
+          val completeTour = currentTour :+ startingVertex
+          if(pathLength(completeTour).isDefined) {
+            if (pathLength(completeTour).get < minCost) {
+              // if it has all the vertices, it is the shortest path
+              if (completeTour.size == getVertices.size + 1) {
+                best = completeTour
+                minCost = pathLength(completeTour).get
+              }
+              else {
+                for (vertex <- getVertices) {
+                  if (!currentTour.contains(vertex)) {
+                    stack +:= (currentTour :+ vertex)
+                  }
+                }
+              }
+            }
+          }
+          // makes a seperate loop for the first case where there is only one vertex
+          else if (completeTour.size == 2) {
+            for (vertex <- getVertices) {
+              if (!currentTour.contains(vertex)) {
+                stack +:= (currentTour :+ vertex)
+              }
+            }
+          }
+        }
+
+        best :+= startingVertex
+        for (pair <- best.sliding(2)) {
+          optimalTour = optimalTour ++ getEdge(pair.head, pair.last)
+        }
+
+        optimalTour
+
+      }
+
+
       /** Returns a string literal of the graph. */
       override def toString:String = {
 
@@ -1702,6 +1765,61 @@ object graph
         var maxIters:Int = 10
 
         getOptimalTour(popSize, inversionProb, maxIters)
+
+      }
+
+
+      /** Computes the optimal solution to the TSP using the Branch & Bound method. */
+      def branchBoundTSP:Seq[Edge[T]] = {
+        var optimalTour = Seq[Edge[T]]()
+        var best = Seq[T]()
+        var startingVertex = getVertices.head
+        var stack = Seq[Seq[T]]()
+        var minCost = scala.Long.MaxValue
+
+        stack +:= Seq(startingVertex)
+
+        while (stack.nonEmpty) {
+
+          // "pops" the stack
+          var currentTour = stack.head
+          stack = stack.filter(_!= currentTour)
+
+          // determines if the current tour is shorter than the best
+          val completeTour = currentTour :+ startingVertex
+          if(pathLength(completeTour).isDefined) {
+            if (pathLength(completeTour).get < minCost) {
+              // if it has all the vertices, it is the shortest path
+              if (completeTour.size == getVertices.size + 1) {
+                best = completeTour
+                minCost = pathLength(completeTour).get
+              }
+              else {
+                for (vertex <- getVertices) {
+                  if (!currentTour.contains(vertex)) {
+                    stack +:= (currentTour :+ vertex)
+                  }
+                }
+              }
+            }
+          }
+          // makes a seperate loop for the first case
+          // where there are only two vertices
+          else if (completeTour.size == 2) {
+            for (vertex <- getVertices) {
+              if (!currentTour.contains(vertex)) {
+                stack +:= (currentTour :+ vertex)
+              }
+            }
+          }
+        }
+
+        best :+= startingVertex
+        for (pair <- best.sliding(2)) {
+          optimalTour = optimalTour ++ getEdge(pair.head, pair.last)
+        }
+
+        optimalTour
 
       }
 
